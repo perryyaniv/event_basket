@@ -81,7 +81,6 @@ export function AgendaView({ mineOnly = false }) {
                         <div className="flex items-center gap-2">
                           <p className="text-sm font-semibold text-[#faf9f6] truncate">{ev.title}</p>
                           {ev.recurrence?.frequency !== 'once' && <RefreshCw size={10} className="text-[#8888aa] flex-shrink-0" />}
-                          {mineOnly && <span className="text-xs text-[#8888aa] flex-shrink-0 truncate">({ev.groupId})</span>}
                         </div>
                         <div className="flex items-center gap-3 mt-0.5 text-xs text-[#8888aa]">
                           <span>{ev.allDay ? t('events.allDay') : `${formatTime(ev.start)}${ev.end ? ` – ${formatTime(ev.end)}` : ''}`}</span>
