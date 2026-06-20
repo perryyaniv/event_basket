@@ -79,12 +79,20 @@ export function MonthView() {
             <div
               key={i}
               onClick={() => setAddModal(date)}
-              className={`border-r border-b border-[var(--eb-border)] p-0.5 sm:p-1 cursor-pointer transition-colors overflow-hidden
-                ${today ? 'bg-[#c9a96e]/8' : 'hover:bg-[var(--eb-surface)]'}`}
+              className={`border-r border-b p-0.5 sm:p-1 cursor-pointer transition-colors overflow-hidden
+                ${today
+                  ? 'bg-[#c9a96e]/8 border-[var(--eb-border)]'
+                  : dayEvents.length > 0
+                    ? 'bg-[var(--eb-surface)] border-[#c9a96e]/30 hover:border-[#c9a96e]/60'
+                    : 'border-[var(--eb-border)] hover:bg-[var(--eb-surface)]'}`}
             >
               {/* Day number */}
-              <div className={`text-[10px] sm:text-xs font-semibold w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full mb-0.5
-                ${today ? 'bg-[#c9a96e] text-[var(--eb-bg)]' : 'text-[var(--eb-muted)]'}`}>
+              <div className={`text-[10px] sm:text-xs w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full mb-0.5
+                ${today
+                  ? 'bg-[#c9a96e] text-[var(--eb-bg)] font-bold'
+                  : dayEvents.length > 0
+                    ? 'text-[var(--eb-text)] font-bold'
+                    : 'text-[var(--eb-muted)] font-semibold'}`}>
                 {date.getDate()}
               </div>
 
