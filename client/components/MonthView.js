@@ -79,12 +79,12 @@ export function MonthView() {
             <div
               key={i}
               onClick={() => setAddModal(date)}
-              className={`border-r border-b p-0.5 sm:p-1 cursor-pointer transition-colors overflow-hidden
+              className={`border-r border-b border-[var(--eb-border)] p-0.5 sm:p-1 cursor-pointer transition-colors overflow-hidden
                 ${today
-                  ? 'bg-[#c9a96e]/8 border-[var(--eb-border)]'
+                  ? 'bg-[#c9a96e]/8'
                   : dayEvents.length > 0
-                    ? 'bg-[var(--eb-surface)] border-[#c9a96e]/30 hover:border-[#c9a96e]/60'
-                    : 'border-[var(--eb-border)] hover:bg-[var(--eb-surface)]'}`}
+                    ? 'bg-[var(--eb-surface)] ring-2 ring-inset ring-[#c9a96e]/50 hover:ring-[#c9a96e]/80'
+                    : 'hover:bg-[var(--eb-surface)]'}`}
             >
               {/* Day number */}
               <div className={`text-[10px] sm:text-xs w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full mb-0.5
