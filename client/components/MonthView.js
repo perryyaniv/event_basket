@@ -72,21 +72,19 @@ export function MonthView() {
         onTouchEnd={onTouchEnd}
       >
         {days.map(({ date, currentMonth }, i) => {
+          if (!currentMonth) return <div key={i} className="border-r border-b border-[var(--eb-border)]" />;
           const dayEvents = eventsOnDay(date);
           const today = isToday(date);
           return (
             <div
               key={i}
-              onClick={() => currentMonth && setAddModal(date)}
-              className={`border-r border-b border-[var(--eb-border)] p-0.5 sm:p-1 transition-colors overflow-hidden
-                ${currentMonth
-                  ? 'cursor-pointer hover:bg-[var(--eb-surface)]'
-                  : 'cursor-default bg-[var(--eb-border)]/25'}
-                ${today ? 'bg-[#c9a96e]/8' : ''}`}
+              onClick={() => setAddModal(date)}
+              className={`border-r border-b border-[var(--eb-border)] p-0.5 sm:p-1 cursor-pointer transition-colors overflow-hidden
+                ${today ? 'bg-[#c9a96e]/8' : 'hover:bg-[var(--eb-surface)]'}`}
             >
               {/* Day number */}
               <div className={`text-[10px] sm:text-xs font-semibold w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full mb-0.5
-                ${today ? 'bg-[#c9a96e] text-[var(--eb-bg)]' : currentMonth ? 'text-[var(--eb-muted)]' : 'text-[var(--eb-border)]'}`}>
+                ${today ? 'bg-[#c9a96e] text-[var(--eb-bg)]' : 'text-[var(--eb-muted)]'}`}>
                 {date.getDate()}
               </div>
 
