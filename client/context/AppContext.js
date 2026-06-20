@@ -14,6 +14,7 @@ export function AppProvider({ children }) {
   const [activeGroup, setActiveGroup] = useState(null);
   const [darkMode, setDarkMode]     = useState(true);
   const [language, setLanguage]     = useState('he');
+  const [hydrated, setHydrated]     = useState(false);
 
   // ── Hydrate from localStorage ──────────────────────────────────────────
   useEffect(() => {
@@ -32,6 +33,7 @@ export function AppProvider({ children }) {
 
     const savedLang = localStorage.getItem('eb_language') || 'he';
     setLanguage(savedLang);
+    setHydrated(true);
   }, []);
 
   // ── Persist state ──────────────────────────────────────────────────────
@@ -93,7 +95,7 @@ export function AppProvider({ children }) {
 
   return (
     <AppContext.Provider value={{
-      username, pastUsers, login, logout,
+      username, pastUsers, hydrated, login, logout,
       groups, activeGroup, createGroup, joinGroup, leaveGroup, deleteGroup, switchGroup,
       darkMode, setDarkMode,
       language, setLanguage,

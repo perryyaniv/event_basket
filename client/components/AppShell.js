@@ -59,7 +59,12 @@ function CalendarApp() {
 }
 
 export function AppShell() {
-  const { username } = useApp();
+  const { username, hydrated } = useApp();
+  if (!hydrated) return (
+    <div className="min-h-screen bg-[#1a1a2e] flex items-center justify-center">
+      <div className="w-2 h-2 rounded-full bg-[#c9a96e] animate-pulse" />
+    </div>
+  );
   if (!username) return <LoginScreen />;
   return (
     <EventsProvider>
