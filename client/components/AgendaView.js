@@ -26,9 +26,20 @@ export function AgendaView({ mineOnly = false }) {
   const now = new Date();
   const rangeEnd = new Date(now.getFullYear() + 2, 11, 31);
   const source = mineOnly ? myEvents : events;
-  const expanded = expandRecurringEvents(source, now, rangeEnd)
+
+  // Expand recurring events, then keep only the next upcoming occurrence per recurring series
+  const allExpanded = expandRecurringEvents(source, now, rangeEnd)
     .filter(e => new Date(e.end || e.start) >= now)
     .sort((a, b) => new Date(a.start) - new Date(b.start));
+
+  const seenRecurring = new Set();
+  const expanded = allExpanded.filter(e => {
+    if (!e._isRecurrence) return true;
+    const id = String(e._originalId);
+    if (seenRecurring.has(id)) return false;
+    seenRecurring.add(id);
+    return true;
+  });
 
   // Group by date
   const grouped = {};
