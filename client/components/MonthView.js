@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useEvents } from '@/context/EventsContext';
 import { useApp } from '@/context/AppContext';
@@ -21,6 +21,15 @@ export function MonthView() {
 
   const prevMonth = () => { if (month === 0) { setMonth(11); setYear(y => y - 1); } else setMonth(m => m - 1); };
   const nextMonth = () => { if (month === 11) { setMonth(0); setYear(y => y + 1); } else setMonth(m => m + 1); };
+
+  const touchStartX = useRef(null);
+  const onTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const onTouchEnd   = (e) => {
+    if (touchStartX.current === null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(delta) > 50) delta > 0 ? prevMonth() : nextMonth();
+    touchStartX.current = null;
+  };
 
   const rangeStart = new Date(year, month, 1);
   const rangeEnd   = new Date(year, month + 1, 0, 23, 59, 59);
@@ -57,7 +66,11 @@ export function MonthView() {
       </div>
 
       {/* Calendar grid */}
-      <div className="grid grid-cols-7 flex-1 auto-rows-[minmax(52px,1fr)] sm:auto-rows-[minmax(80px,1fr)]">
+      <div
+        className="grid grid-cols-7 flex-1 auto-rows-[minmax(52px,1fr)] sm:auto-rows-[minmax(80px,1fr)]"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         {days.map(({ date, currentMonth }, i) => {
           const dayEvents = eventsOnDay(date);
           const today = isToday(date);
