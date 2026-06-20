@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useEvents } from '@/context/EventsContext';
@@ -90,7 +90,7 @@ export function EventForm({ event, onClose, defaultDate }) {
               key={et.key}
               type="button"
               onClick={() => setType(et.key)}
-              className={`flex flex-col items-center gap-0.5 p-1.5 rounded-lg border transition-all ${type === et.key ? 'border-[#c9a96e] bg-[#c9a96e]/10' : 'border-[#2e2e50]'}`}
+              className={`flex flex-col items-center gap-0.5 p-1.5 rounded-lg border transition-all ${type === et.key ? 'border-[#c9a96e] bg-[#c9a96e]/10' : 'border-[var(--eb-border)]'}`}
               title={t(`eventTypes.${et.key}`)}
             >
               <span className="text-sm sm:text-base leading-none">{et.emoji}</span>
@@ -105,11 +105,11 @@ export function EventForm({ event, onClose, defaultDate }) {
         <button
           type="button"
           onClick={() => setAllDay(v => !v)}
-          className={`relative w-10 h-5 rounded-full transition-colors flex-shrink-0 ${allDay ? 'bg-[#c9a96e]' : 'bg-[#2e2e50]'}`}
+          className={`relative w-10 h-5 rounded-full transition-colors flex-shrink-0 ${allDay ? 'bg-[#c9a96e]' : 'bg-[var(--eb-border)]'}`}
         >
           <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${allDay ? 'translate-x-5' : 'translate-x-0.5'}`} />
         </button>
-        <span className="text-sm text-[#faf9f6]">{t('events.allDay')}</span>
+        <span className="text-sm text-[var(--eb-text)]">{t('events.allDay')}</span>
       </div>
 
       {/* Start / End */}
@@ -135,7 +135,7 @@ export function EventForm({ event, onClose, defaultDate }) {
               key={r}
               type="button"
               onClick={() => setFreq(r)}
-              className={`px-2 sm:px-3 py-1.5 rounded-full text-xs font-medium border transition-all text-center ${freq === r ? 'border-[#c9a96e] bg-[#c9a96e]/15 text-[#c9a96e]' : 'border-[#2e2e50] text-[#8888aa]'}`}
+              className={`px-2 sm:px-3 py-1.5 rounded-full text-xs font-medium border transition-all text-center ${freq === r ? 'border-[#c9a96e] bg-[#c9a96e]/15 text-[#c9a96e]' : 'border-[var(--eb-border)] text-[var(--eb-muted)]'}`}
             >
               {t(`recurrence.${r}`)}
             </button>

@@ -1,4 +1,4 @@
-import { cva } from 'class-variance-authority';
+﻿import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
@@ -6,10 +6,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        gold:       'bg-[#c9a96e] text-[#1a1a2e] hover:bg-[#d4ba85] active:scale-[0.98]',
-        charcoal:   'bg-[#222240] text-[#faf9f6] border border-[#2e2e50] hover:bg-[#2a2a48] active:scale-[0.98]',
+        gold:       'bg-[#c9a96e] text-[var(--eb-bg)] hover:bg-[#d4ba85] active:scale-[0.98]',
+        charcoal:   'bg-[var(--eb-surface)] text-[var(--eb-text)] border border-[var(--eb-border)] hover:bg-[#2a2a48] active:scale-[0.98]',
         outline:    'border border-[#c9a96e] text-[#c9a96e] hover:bg-[#c9a96e]/10 active:scale-[0.98]',
-        ghost:      'text-[#8888aa] hover:text-[#faf9f6] hover:bg-[#222240]',
+        ghost:      'text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)]',
         destructive:'bg-red-500/10 text-red-400 border border-red-500/30 hover:bg-red-500/20',
       },
       size: {

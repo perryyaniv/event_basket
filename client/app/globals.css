@@ -23,6 +23,23 @@
   --radius-full: 9999px;
 }
 
+/* ── Theme variables (dark default, light override) ──────────────────── */
+:root {
+  --eb-bg:      #1a1a2e;
+  --eb-surface: #222240;
+  --eb-border:  #2e2e50;
+  --eb-text:    #faf9f6;
+  --eb-muted:   #8888aa;
+}
+
+html.light {
+  --eb-bg:      #f3f1ec;
+  --eb-surface: #ffffff;
+  --eb-border:  #ddd8cc;
+  --eb-text:    #1a1a2e;
+  --eb-muted:   #6b6480;
+}
+
 /* ── Base ─────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { CheckCircle, XCircle, Info, RotateCcw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useNotification } from '@/context/NotificationContext';
@@ -24,12 +24,12 @@ export function ToastContainer() {
         <div
           key={n.id}
           className={cn(
-            'flex items-center gap-3 px-4 py-3 rounded-xl border bg-[#222240] shadow-lg text-sm font-medium animate-slide-in-right',
+            'flex items-center gap-3 px-4 py-3 rounded-xl border bg-[var(--eb-surface)] shadow-lg text-sm font-medium animate-slide-in-right',
             colors[n.type] || colors.success
           )}
         >
           {icons[n.type] || icons.success}
-          <span className="text-[#faf9f6]">{n.message}</span>
+          <span className="text-[var(--eb-text)]">{n.message}</span>
           {n.showUndo && n.onUndo && (
             <button
               onClick={() => { n.onUndo(); hideNotification(n.id); }}

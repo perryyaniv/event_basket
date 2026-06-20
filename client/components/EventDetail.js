@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useTranslation } from 'react-i18next';
 import { useEvents } from '@/context/EventsContext';
 import { useApp } from '@/context/AppContext';
@@ -36,31 +36,31 @@ export function EventDetail({ event, onEdit, onClose }) {
       </div>
 
       {/* Info rows */}
-      <div className="space-y-2 text-sm text-[#faf9f6]">
-        <div className="flex items-center gap-2 text-[#8888aa]">
+      <div className="space-y-2 text-sm text-[var(--eb-text)]">
+        <div className="flex items-center gap-2 text-[var(--eb-muted)]">
           <Calendar size={14} />
           <span>{formatDate(event.start)}</span>
         </div>
-        <div className="flex items-center gap-2 text-[#8888aa]">
+        <div className="flex items-center gap-2 text-[var(--eb-muted)]">
           <Clock size={14} />
           <span>{event.allDay ? t('events.allDay') : `${formatTime(event.start)}${event.end ? ` – ${formatTime(event.end)}` : ''}`}</span>
         </div>
         {event.location && (
-          <div className="flex items-center gap-2 text-[#8888aa]">
+          <div className="flex items-center gap-2 text-[var(--eb-muted)]">
             <MapPin size={14} />
             <span>{event.location}</span>
           </div>
         )}
         {event.recurrence?.frequency !== 'once' && (
-          <div className="flex items-center gap-2 text-[#8888aa]">
+          <div className="flex items-center gap-2 text-[var(--eb-muted)]">
             <RefreshCw size={14} />
             <span>{t(`recurrence.${event.recurrence.frequency}`)}</span>
           </div>
         )}
         {event.description && (
-          <p className="text-[#faf9f6] bg-[#1a1a2e] rounded-lg p-3 text-sm leading-relaxed">{event.description}</p>
+          <p className="text-[var(--eb-text)] bg-[var(--eb-bg)] rounded-lg p-3 text-sm leading-relaxed">{event.description}</p>
         )}
-        <div className="flex items-center gap-2 text-[#8888aa]">
+        <div className="flex items-center gap-2 text-[var(--eb-muted)]">
           <User size={14} />
           <span>{event.createdBy}</span>
         </div>
@@ -68,7 +68,7 @@ export function EventDetail({ event, onEdit, onClose }) {
 
       {/* Actions (creator only) */}
       {isCreator && (
-        <div className="flex gap-2 pt-2 border-t border-[#2e2e50]">
+        <div className="flex gap-2 pt-2 border-t border-[var(--eb-border)]">
           <Button variant="charcoal" size="sm" onClick={onEdit} className="flex-1">{t('common.edit')}</Button>
           <Button variant="destructive" size="sm" onClick={handleDelete} className="flex-1">{t('common.delete')}</Button>
         </div>

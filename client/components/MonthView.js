@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useEvents } from '@/context/EventsContext';
@@ -44,22 +44,22 @@ export function MonthView() {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border-b border-[#2e2e50]">
-        <button onClick={prevMonth} className="p-2 rounded-lg text-[#8888aa] hover:text-[#faf9f6] hover:bg-[#222240] transition-colors">
+      <div className="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border-b border-[var(--eb-border)]">
+        <button onClick={prevMonth} className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)] transition-colors">
           <ChevronRight size={18} />
         </button>
-        <h2 className="text-base sm:text-lg font-bold text-[#faf9f6]">
+        <h2 className="text-base sm:text-lg font-bold text-[var(--eb-text)]">
           {monthNames[month]} {year}
         </h2>
-        <button onClick={nextMonth} className="p-2 rounded-lg text-[#8888aa] hover:text-[#faf9f6] hover:bg-[#222240] transition-colors">
+        <button onClick={nextMonth} className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)] transition-colors">
           <ChevronLeft size={18} />
         </button>
       </div>
 
       {/* Day names */}
-      <div className="grid grid-cols-7 border-b border-[#2e2e50]">
+      <div className="grid grid-cols-7 border-b border-[var(--eb-border)]">
         {dayNames.map((d, i) => (
-          <div key={i} className="py-1.5 text-center text-[10px] sm:text-xs font-semibold text-[#8888aa] uppercase tracking-wide">
+          <div key={i} className="py-1.5 text-center text-[10px] sm:text-xs font-semibold text-[var(--eb-muted)] uppercase tracking-wide">
             {d}
           </div>
         ))}
@@ -78,13 +78,13 @@ export function MonthView() {
             <div
               key={i}
               onClick={() => currentMonth && setAddModal(date)}
-              className={`border-r border-b border-[#2e2e50] p-0.5 sm:p-1 cursor-pointer transition-colors overflow-hidden
-                ${currentMonth ? 'hover:bg-[#222240]/60' : 'opacity-30'}
+              className={`border-r border-b border-[var(--eb-border)] p-0.5 sm:p-1 cursor-pointer transition-colors overflow-hidden
+                ${currentMonth ? 'hover:bg-[var(--eb-surface)]/60' : 'opacity-30'}
                 ${today ? 'bg-[#c9a96e]/5' : ''}`}
             >
               {/* Day number */}
               <div className={`text-[10px] sm:text-xs font-semibold w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full mb-0.5
-                ${today ? 'bg-[#c9a96e] text-[#1a1a2e]' : 'text-[#8888aa]'}`}>
+                ${today ? 'bg-[#c9a96e] text-[var(--eb-bg)]' : 'text-[var(--eb-muted)]'}`}>
                 {date.getDate()}
               </div>
 
@@ -100,13 +100,13 @@ export function MonthView() {
                       style={{ background: `${et.color}20`, borderLeft: `2px solid ${et.color}` }}
                     >
                       {/* Mobile: dot only. Desktop: dot + title */}
-                      <span className="hidden sm:block text-[10px] text-[#faf9f6] truncate leading-tight">{ev.title}</span>
-                      <span className="sm:hidden text-[8px] text-[#faf9f6] truncate leading-tight">{ev.title}</span>
+                      <span className="hidden sm:block text-[10px] text-[var(--eb-text)] truncate leading-tight">{ev.title}</span>
+                      <span className="sm:hidden text-[8px] text-[var(--eb-text)] truncate leading-tight">{ev.title}</span>
                     </div>
                   );
                 })}
                 {dayEvents.length > 2 && (
-                  <div className="text-[8px] sm:text-xs text-[#8888aa] px-0.5">+{dayEvents.length - 2}</div>
+                  <div className="text-[8px] sm:text-xs text-[var(--eb-muted)] px-0.5">+{dayEvents.length - 2}</div>
                 )}
               </div>
             </div>

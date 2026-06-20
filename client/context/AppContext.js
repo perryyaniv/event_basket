@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNotification } from './NotificationContext';
@@ -29,7 +29,9 @@ export function AppProvider({ children }) {
     if (savedActive) setActiveGroup(JSON.parse(savedActive));
 
     const savedDark = localStorage.getItem('eb_darkMode');
-    setDarkMode(savedDark !== null ? savedDark === 'true' : true);
+    const isDark = savedDark !== null ? savedDark === 'true' : true;
+    setDarkMode(isDark);
+    document.documentElement.classList.toggle('light', !isDark);
 
     const savedLang = localStorage.getItem('eb_language') || 'he';
     setLanguage(savedLang);
@@ -43,7 +45,10 @@ export function AppProvider({ children }) {
     if (activeGroup) localStorage.setItem('eb_activeGroup', JSON.stringify(activeGroup));
     else localStorage.removeItem('eb_activeGroup');
   }, [activeGroup]);
-  useEffect(() => { localStorage.setItem('eb_darkMode', String(darkMode)); }, [darkMode]);
+  useEffect(() => {
+    localStorage.setItem('eb_darkMode', String(darkMode));
+    document.documentElement.classList.toggle('light', !darkMode);
+  }, [darkMode]);
   useEffect(() => { localStorage.setItem('eb_language', language); }, [language]);
 
   // ── Toast shorthand ────────────────────────────────────────────────────

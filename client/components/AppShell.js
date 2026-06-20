@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState } from 'react';
 import { useApp } from '@/context/AppContext';
 import { EventsProvider } from '@/context/EventsContext';
@@ -20,15 +20,15 @@ function CalendarApp() {
   const [addModal, setAddModal] = useState(false);
 
   return (
-    <div className="flex flex-col h-screen bg-[#1a1a2e] text-[#faf9f6]">
+    <div className="flex flex-col h-screen bg-[var(--eb-bg)] text-[var(--eb-text)]">
       <Header view={view} setView={setView} />
 
       {/* No group selected state */}
       {!activeGroup ? (
         <div className="flex-1 flex items-center justify-center text-center px-6">
           <div>
-            <p className="text-[#8888aa] text-lg mb-1">{t('groups.noGroups')}</p>
-            <p className="text-[#8888aa] text-sm">{t('groups.noGroupsHint')}</p>
+            <p className="text-[var(--eb-muted)] text-lg mb-1">{t('groups.noGroups')}</p>
+            <p className="text-[var(--eb-muted)] text-sm">{t('groups.noGroupsHint')}</p>
           </div>
         </div>
       ) : (
@@ -40,7 +40,7 @@ function CalendarApp() {
           {/* FAB */}
           <button
             onClick={() => setAddModal(true)}
-            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#c9a96e] text-[#1a1a2e] shadow-xl hover:bg-[#d4ba85] active:scale-95 transition-all flex items-center justify-center z-20"
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#c9a96e] text-[var(--eb-bg)] shadow-xl hover:bg-[#d4ba85] active:scale-95 transition-all flex items-center justify-center z-20"
             title={t('events.add')}
           >
             <Plus size={24} strokeWidth={2.5} />
@@ -61,7 +61,7 @@ function CalendarApp() {
 export function AppShell() {
   const { username, hydrated } = useApp();
   if (!hydrated) return (
-    <div className="min-h-screen bg-[#1a1a2e] flex items-center justify-center">
+    <div className="min-h-screen bg-[var(--eb-bg)] flex items-center justify-center">
       <div className="w-2 h-2 rounded-full bg-[#c9a96e] animate-pulse" />
     </div>
   );

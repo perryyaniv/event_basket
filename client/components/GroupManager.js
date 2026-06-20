@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useApp } from '@/context/AppContext';
@@ -19,32 +19,32 @@ function GroupCard({ group, isActive, onSwitch, onLeave, onDelete, username }) {
   };
 
   return (
-    <div className={`rounded-xl border p-4 transition-all ${isActive ? 'border-[#c9a96e] bg-[#c9a96e]/5' : 'border-[#2e2e50] bg-[#1a1a2e] hover:border-[#2e2e50]'}`}>
+    <div className={`rounded-xl border p-4 transition-all ${isActive ? 'border-[#c9a96e] bg-[#c9a96e]/5' : 'border-[var(--eb-border)] bg-[var(--eb-bg)] hover:border-[var(--eb-border)]'}`}>
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             {isActive && <span className="w-2 h-2 rounded-full bg-[#c9a96e] flex-shrink-0" />}
-            <p className="font-semibold text-[#faf9f6] truncate">{group.name}</p>
+            <p className="font-semibold text-[var(--eb-text)] truncate">{group.name}</p>
           </div>
-          <p className="text-xs text-[#8888aa] mt-0.5">{t('groups.createdBy')}: {group.createdBy}</p>
+          <p className="text-xs text-[var(--eb-muted)] mt-0.5">{t('groups.createdBy')}: {group.createdBy}</p>
         </div>
         <div className="flex items-center gap-1 flex-shrink-0">
-          <button onClick={copyCode} className="p-1.5 rounded-lg text-[#8888aa] hover:text-[#c9a96e] hover:bg-[#c9a96e]/10 transition-colors" title={t('groups.copyCode')}>
+          <button onClick={copyCode} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-[#c9a96e] hover:bg-[#c9a96e]/10 transition-colors" title={t('groups.copyCode')}>
             {copied ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
           </button>
           {isCreator ? (
-            <button onClick={() => onDelete(group)} className="p-1.5 rounded-lg text-[#8888aa] hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('groups.delete')}>
+            <button onClick={() => onDelete(group)} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('groups.delete')}>
               <Trash2 size={14} />
             </button>
           ) : (
-            <button onClick={() => onLeave(group)} className="p-1.5 rounded-lg text-[#8888aa] hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('groups.leave')}>
+            <button onClick={() => onLeave(group)} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('groups.leave')}>
               <LogOut size={14} />
             </button>
           )}
         </div>
       </div>
       <div className="flex items-center justify-between mt-3">
-        <span className="text-xs font-mono bg-[#2e2e50] px-2 py-0.5 rounded text-[#8888aa]">{group.code}</span>
+        <span className="text-xs font-mono bg-[var(--eb-border)] px-2 py-0.5 rounded text-[var(--eb-muted)]">{group.code}</span>
         {!isActive && (
           <Button variant="outline" size="sm" onClick={() => onSwitch(group)}>
             {t('groups.switchGroup')}
@@ -131,7 +131,7 @@ export function GroupManager({ onClose }) {
       {mode === 'create' && (
         <form onSubmit={handleCreate} className="space-y-3">
           <div><Label>{t('groups.groupName')}</Label><Input value={name} onChange={e => setName(e.target.value)} placeholder={t('groups.namePlaceholder')} autoFocus /></div>
-          <div><Label>{t('groups.groupCode')}</Label><Input value={code} onChange={e => setCode(e.target.value)} placeholder={t('groups.codePlaceholder')} /><p className="text-xs text-[#8888aa] mt-1">{t('groups.groupCodeHint')}</p></div>
+          <div><Label>{t('groups.groupCode')}</Label><Input value={code} onChange={e => setCode(e.target.value)} placeholder={t('groups.codePlaceholder')} /><p className="text-xs text-[var(--eb-muted)] mt-1">{t('groups.groupCodeHint')}</p></div>
           {error && <p className="text-red-400 text-xs">{error}</p>}
           <div className="flex gap-2 pt-1">
             <Button variant="charcoal" size="sm" type="button" onClick={() => setMode('list')}>{t('common.cancel')}</Button>
@@ -157,8 +157,8 @@ export function GroupManager({ onClose }) {
         <div className="space-y-2 max-h-[38dvh] sm:max-h-80 overflow-y-auto">
           {groups.length === 0 ? (
             <div className="text-center py-8">
-              <p className="text-[#8888aa] text-sm">{t('groups.noGroups')}</p>
-              <p className="text-[#8888aa] text-xs mt-1">{t('groups.noGroupsHint')}</p>
+              <p className="text-[var(--eb-muted)] text-sm">{t('groups.noGroups')}</p>
+              <p className="text-[var(--eb-muted)] text-xs mt-1">{t('groups.noGroupsHint')}</p>
             </div>
           ) : groups.map(g => (
             <GroupCard
@@ -177,7 +177,7 @@ export function GroupManager({ onClose }) {
       {/* Confirm dialog */}
       {confirmGroup && (
         <Modal open={true} onClose={() => setConfirmGroup(null)} title={confirmGroup.action === 'delete' ? t('groups.delete') : t('groups.leave')}>
-          <p className="text-[#faf9f6] text-sm mb-5">
+          <p className="text-[var(--eb-text)] text-sm mb-5">
             {confirmGroup.action === 'delete' ? t('groups.deleteConfirm') : t('groups.leaveConfirm')}
           </p>
           <div className="flex gap-2 justify-end">

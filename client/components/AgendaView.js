@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useEvents } from '@/context/EventsContext';
@@ -53,24 +53,24 @@ export function AgendaView({ mineOnly = false }) {
   return (
     <div className="flex flex-col h-full overflow-y-auto">
       {dateKeys.length === 0 ? (
-        <div className="flex-1 flex items-center justify-center text-[#8888aa] text-sm">
+        <div className="flex-1 flex items-center justify-center text-[var(--eb-muted)] text-sm">
           {t('events.noEvents')}
         </div>
       ) : (
-        <div className="divide-y divide-[#2e2e50]">
+        <div className="divide-y divide-[var(--eb-border)]">
           {dateKeys.map(dateKey => (
             <div key={dateKey}>
-              <div className="sticky top-0 bg-[#1a1a2e] px-4 py-2 border-b border-[#2e2e50] z-10">
+              <div className="sticky top-0 bg-[var(--eb-bg)] px-4 py-2 border-b border-[var(--eb-border)] z-10">
                 <span className="text-xs font-bold text-[#c9a96e] uppercase tracking-wider">{dateKey}</span>
               </div>
-              <div className="divide-y divide-[#2e2e50]/50">
+              <div className="divide-y divide-[var(--eb-border)]/50">
                 {grouped[dateKey].map((ev, idx) => {
                   const et = getEventType(ev.type);
                   return (
                     <div
                       key={idx}
                       onClick={() => setDetailEvent(ev)}
-                      className="flex items-start gap-3 px-4 py-3 hover:bg-[#222240] cursor-pointer transition-colors"
+                      className="flex items-start gap-3 px-4 py-3 hover:bg-[var(--eb-surface)] cursor-pointer transition-colors"
                     >
                       <div className="flex-shrink-0 mt-0.5">
                         <div className="w-8 h-8 rounded-lg flex items-center justify-center text-base" style={{ background: `${et.color}20` }}>
@@ -79,10 +79,10 @@ export function AgendaView({ mineOnly = false }) {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <p className="text-sm font-semibold text-[#faf9f6] truncate">{ev.title}</p>
-                          {ev.recurrence?.frequency !== 'once' && <RefreshCw size={10} className="text-[#8888aa] flex-shrink-0" />}
+                          <p className="text-sm font-semibold text-[var(--eb-text)] truncate">{ev.title}</p>
+                          {ev.recurrence?.frequency !== 'once' && <RefreshCw size={10} className="text-[var(--eb-muted)] flex-shrink-0" />}
                         </div>
-                        <div className="flex items-center gap-3 mt-0.5 text-xs text-[#8888aa]">
+                        <div className="flex items-center gap-3 mt-0.5 text-xs text-[var(--eb-muted)]">
                           <span>{ev.allDay ? t('events.allDay') : `${formatTime(ev.start)}${ev.end ? ` – ${formatTime(ev.end)}` : ''}`}</span>
                           {ev.location && <span className="flex items-center gap-0.5"><MapPin size={10} />{ev.location}</span>}
                         </div>

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useApp } from '@/context/AppContext';
@@ -17,7 +17,7 @@ export function LoginScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-[#1a1a2e] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+    <div className="min-h-screen bg-[var(--eb-bg)] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
       {/* Gold glow background */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#c9a96e]/8 rounded-full blur-3xl pointer-events-none" />
 
@@ -30,12 +30,12 @@ export function LoginScreen() {
           <h1 className="text-3xl font-bold text-white tracking-tight">
             Event<span className="text-[#c9a96e]">Basket</span>
           </h1>
-          <p className="text-[#8888aa] text-sm mt-1">{t('app.tagline')}</p>
+          <p className="text-[var(--eb-muted)] text-sm mt-1">{t('app.tagline')}</p>
         </div>
 
         {/* Form */}
-        <div className="bg-[#222240] border border-[#2e2e50] rounded-2xl p-6">
-          <p className="text-[#faf9f6] font-semibold mb-4">{t('auth.enterName')}</p>
+        <div className="bg-[var(--eb-surface)] border border-[var(--eb-border)] rounded-2xl p-6">
+          <p className="text-[var(--eb-text)] font-semibold mb-4">{t('auth.enterName')}</p>
           <form onSubmit={handleSubmit} className="space-y-3">
             <Input
               value={name}
@@ -50,14 +50,14 @@ export function LoginScreen() {
 
           {/* Past users */}
           {pastUsers.length > 1 && (
-            <div className="mt-5 pt-5 border-t border-[#2e2e50]">
-              <p className="text-xs text-[#8888aa] uppercase tracking-wider mb-3">{t('auth.previousUsers')}</p>
+            <div className="mt-5 pt-5 border-t border-[var(--eb-border)]">
+              <p className="text-xs text-[var(--eb-muted)] uppercase tracking-wider mb-3">{t('auth.previousUsers')}</p>
               <div className="flex flex-wrap gap-2">
                 {pastUsers.slice(1).map(u => (
                   <button
                     key={u}
                     onClick={() => login(u)}
-                    className="px-3 py-1.5 text-sm rounded-lg bg-[#1a1a2e] border border-[#2e2e50] text-[#faf9f6] hover:border-[#c9a96e] transition-colors"
+                    className="px-3 py-1.5 text-sm rounded-lg bg-[var(--eb-bg)] border border-[var(--eb-border)] text-[var(--eb-text)] hover:border-[#c9a96e] transition-colors"
                   >
                     {u}
                   </button>
