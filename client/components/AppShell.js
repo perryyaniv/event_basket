@@ -21,7 +21,7 @@ function CalendarApp() {
   const [addModal, setAddModal] = useState(false);
 
   return (
-    <div className="flex flex-col h-screen bg-[var(--eb-bg)] text-[var(--eb-text)]">
+    <div className="flex flex-col h-[100dvh] overflow-hidden bg-[var(--eb-bg)] text-[var(--eb-text)]">
       <Header view={view} setView={setView} />
 
       {/* No group selected state */}

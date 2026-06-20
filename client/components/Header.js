@@ -21,8 +21,8 @@ export function Header({ view, setView }) {
   };
 
   return (
-    <>
-      <header className="flex items-center justify-between px-4 py-3 border-b border-[var(--eb-border)] bg-[var(--eb-bg)]/80 backdrop-blur-sm sticky top-0 z-30">
+    <div className="sticky top-0 z-30 flex-shrink-0">
+      <header className="flex items-center justify-between px-4 py-3 border-b border-[var(--eb-border)] bg-[var(--eb-bg)]/80 backdrop-blur-sm">
         {/* Logo + group */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
@@ -99,6 +99,6 @@ export function Header({ view, setView }) {
       <Modal open={groupModal} onClose={() => setGroupModal(false)} title={t('groups.title')}>
         <GroupManager onClose={() => setGroupModal(false)} />
       </Modal>
-    </>
+    </div>
   );
 }
