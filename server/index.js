@@ -18,6 +18,8 @@ const io = new Server(server, {
 app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:3000' }));
 app.use(express.json());
 
+app.get('/health', (req, res) => res.json({ status: 'ok' }));
+
 // ─── Mongoose Models ─────────────────────────────────────────────────────────
 
 const GroupSchema = new mongoose.Schema({

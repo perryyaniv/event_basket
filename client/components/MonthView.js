@@ -6,17 +6,16 @@ import { useApp } from '@/context/AppContext';
 import { Modal } from './ui/Modal';
 import { EventForm } from './EventForm';
 import { EventDetail } from './EventDetail';
-import { Button } from './ui/Button';
-import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getCalendarDays, isToday, isSameDay, expandRecurringEvents, getEventType } from '@/lib/utils';
 
 export function MonthView() {
   const { t } = useTranslation();
   const { events } = useEvents();
-  const { activeGroup, username } = useApp();
+  const { activeGroup } = useApp();
   const [year, setYear]               = useState(new Date().getFullYear());
   const [month, setMonth]             = useState(new Date().getMonth());
-  const [addModal, setAddModal]       = useState(null);  // date | null
+  const [addModal, setAddModal]       = useState(null);
   const [detailEvent, setDetailEvent] = useState(null);
   const [editEvent, setEditEvent]     = useState(null);
 
@@ -36,11 +35,11 @@ export function MonthView() {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[#2e2e50]">
+      <div className="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border-b border-[#2e2e50]">
         <button onClick={prevMonth} className="p-2 rounded-lg text-[#8888aa] hover:text-[#faf9f6] hover:bg-[#222240] transition-colors">
           <ChevronRight size={18} />
         </button>
-        <h2 className="text-lg font-bold text-[#faf9f6]">
+        <h2 className="text-base sm:text-lg font-bold text-[#faf9f6]">
           {monthNames[month]} {year}
         </h2>
         <button onClick={nextMonth} className="p-2 rounded-lg text-[#8888aa] hover:text-[#faf9f6] hover:bg-[#222240] transition-colors">
@@ -51,14 +50,14 @@ export function MonthView() {
       {/* Day names */}
       <div className="grid grid-cols-7 border-b border-[#2e2e50]">
         {dayNames.map((d, i) => (
-          <div key={i} className="py-2 text-center text-xs font-semibold text-[#8888aa] uppercase tracking-wider">
+          <div key={i} className="py-1.5 text-center text-[10px] sm:text-xs font-semibold text-[#8888aa] uppercase tracking-wide">
             {d}
           </div>
         ))}
       </div>
 
       {/* Calendar grid */}
-      <div className="grid grid-cols-7 flex-1 auto-rows-[minmax(80px,1fr)]">
+      <div className="grid grid-cols-7 flex-1 auto-rows-[minmax(52px,1fr)] sm:auto-rows-[minmax(80px,1fr)]">
         {days.map(({ date, currentMonth }, i) => {
           const dayEvents = eventsOnDay(date);
           const today = isToday(date);
@@ -66,30 +65,35 @@ export function MonthView() {
             <div
               key={i}
               onClick={() => currentMonth && setAddModal(date)}
-              className={`border-r border-b border-[#2e2e50] p-1 cursor-pointer transition-colors overflow-hidden
+              className={`border-r border-b border-[#2e2e50] p-0.5 sm:p-1 cursor-pointer transition-colors overflow-hidden
                 ${currentMonth ? 'hover:bg-[#222240]/60' : 'opacity-30'}
                 ${today ? 'bg-[#c9a96e]/5' : ''}`}
             >
-              <div className={`text-xs font-semibold w-6 h-6 flex items-center justify-center rounded-full mb-1
+              {/* Day number */}
+              <div className={`text-[10px] sm:text-xs font-semibold w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full mb-0.5
                 ${today ? 'bg-[#c9a96e] text-[#1a1a2e]' : 'text-[#8888aa]'}`}>
                 {date.getDate()}
               </div>
-              <div className="space-y-0.5">
-                {dayEvents.slice(0, 3).map((ev, idx) => {
+
+              {/* Events */}
+              <div className="space-y-px">
+                {dayEvents.slice(0, 2).map((ev, idx) => {
                   const et = getEventType(ev.type);
                   return (
                     <div
                       key={idx}
                       onClick={e => { e.stopPropagation(); setDetailEvent(ev); }}
-                      className="flex items-center gap-1 px-1 py-0.5 rounded text-xs truncate cursor-pointer hover:opacity-80 transition-opacity"
+                      className="flex items-center px-0.5 sm:px-1 py-px rounded cursor-pointer hover:opacity-80 transition-opacity"
                       style={{ background: `${et.color}20`, borderLeft: `2px solid ${et.color}` }}
                     >
-                      <span className="truncate text-[#faf9f6]">{ev.title}</span>
+                      {/* Mobile: dot only. Desktop: dot + title */}
+                      <span className="hidden sm:block text-[10px] text-[#faf9f6] truncate leading-tight">{ev.title}</span>
+                      <span className="sm:hidden text-[8px] text-[#faf9f6] truncate leading-tight">{ev.title}</span>
                     </div>
                   );
                 })}
-                {dayEvents.length > 3 && (
-                  <div className="text-xs text-[#8888aa] px-1">+{dayEvents.length - 3}</div>
+                {dayEvents.length > 2 && (
+                  <div className="text-[8px] sm:text-xs text-[#8888aa] px-0.5">+{dayEvents.length - 2}</div>
                 )}
               </div>
             </div>
@@ -97,12 +101,10 @@ export function MonthView() {
         })}
       </div>
 
-      {/* Add event modal */}
+      {/* Modals */}
       <Modal open={!!addModal} onClose={() => setAddModal(null)} title={t('events.add')}>
         <EventForm defaultDate={addModal} onClose={() => setAddModal(null)} />
       </Modal>
-
-      {/* Event detail modal */}
       <Modal open={!!detailEvent} onClose={() => setDetailEvent(null)} title={detailEvent?.title || ''}>
         <EventDetail
           event={detailEvent}
@@ -110,9 +112,7 @@ export function MonthView() {
           onClose={() => setDetailEvent(null)}
         />
       </Modal>
-
-      {/* Edit event modal */}
-      <Modal open={!!editEvent} onClose={() => setEditEvent(null)} title={t('events.edit')} className="max-w-lg">
+      <Modal open={!!editEvent} onClose={() => setEditEvent(null)} title={t('events.edit')}>
         <EventForm event={editEvent} onClose={() => setEditEvent(null)} />
       </Modal>
     </div>

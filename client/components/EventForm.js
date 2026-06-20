@@ -80,24 +80,24 @@ export function EventForm({ event, onClose, defaultDate }) {
       {/* Type */}
       <div>
         <Label>{t('events.type')}</Label>
-        <div className="grid grid-cols-5 gap-1.5">
+        <div className="grid grid-cols-5 gap-1">
           {EVENT_TYPES.map(et => (
             <button
               key={et.key}
               type="button"
               onClick={() => setType(et.key)}
-              className={`flex flex-col items-center gap-1 p-2 rounded-lg border text-xs transition-all ${type === et.key ? 'border-[#c9a96e] bg-[#c9a96e]/10' : 'border-[#2e2e50] hover:border-[#2e2e50]/60'}`}
+              className={`flex flex-col items-center gap-0.5 p-1.5 rounded-lg border transition-all ${type === et.key ? 'border-[#c9a96e] bg-[#c9a96e]/10' : 'border-[#2e2e50]'}`}
               title={t(`eventTypes.${et.key}`)}
             >
-              <span className="text-base">{et.emoji}</span>
-              <span style={{ color: type === et.key ? et.color : '#8888aa' }} className="truncate w-full text-center">{t(`eventTypes.${et.key}`).split(' ')[0]}</span>
+              <span className="text-sm sm:text-base leading-none">{et.emoji}</span>
+              <span style={{ fontSize: '9px', color: type === et.key ? et.color : '#8888aa' }} className="truncate w-full text-center leading-tight">{t(`eventTypes.${et.key}`)}</span>
             </button>
           ))}
         </div>
       </div>
 
       {/* Start / End */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <Label>{t('events.start')}</Label>
           <Input type="datetime-local" value={start} onChange={e => setStart(e.target.value)} required />
@@ -111,13 +111,13 @@ export function EventForm({ event, onClose, defaultDate }) {
       {/* Recurrence */}
       <div>
         <Label>{t('events.recurrence')}</Label>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-1.5">
           {RECURRENCE_OPTIONS.map(r => (
             <button
               key={r}
               type="button"
               onClick={() => setFreq(r)}
-              className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${freq === r ? 'border-[#c9a96e] bg-[#c9a96e]/15 text-[#c9a96e]' : 'border-[#2e2e50] text-[#8888aa] hover:border-[#8888aa]'}`}
+              className={`px-2 sm:px-3 py-1.5 rounded-full text-xs font-medium border transition-all text-center ${freq === r ? 'border-[#c9a96e] bg-[#c9a96e]/15 text-[#c9a96e]' : 'border-[#2e2e50] text-[#8888aa]'}`}
             >
               {t(`recurrence.${r}`)}
             </button>

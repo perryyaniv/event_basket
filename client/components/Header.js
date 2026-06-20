@@ -37,7 +37,7 @@ export function Header({ view, setView }) {
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#222240] border border-[#2e2e50] hover:border-[#c9a96e]/40 transition-colors text-sm"
           >
             <Users size={13} className="text-[#c9a96e]" />
-            <span className="text-[#faf9f6] max-w-[120px] truncate text-xs font-medium">
+            <span className="text-[#faf9f6] max-w-[90px] sm:max-w-[140px] truncate text-xs font-medium">
               {activeGroup ? activeGroup.name : t('groups.noGroups')}
             </span>
             <ChevronDown size={12} className="text-[#8888aa]" />

@@ -40,7 +40,7 @@ function CalendarApp() {
           {/* FAB */}
           <button
             onClick={() => setAddModal(true)}
-            className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-[#c9a96e] text-[#1a1a2e] shadow-xl hover:bg-[#d4ba85] active:scale-95 transition-all flex items-center justify-center z-20"
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#c9a96e] text-[#1a1a2e] shadow-xl hover:bg-[#d4ba85] active:scale-95 transition-all flex items-center justify-center z-20"
             title={t('events.add')}
           >
             <Plus size={24} strokeWidth={2.5} />

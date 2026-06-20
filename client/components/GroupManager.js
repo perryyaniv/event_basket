@@ -154,7 +154,7 @@ export function GroupManager({ onClose }) {
 
       {/* Groups list */}
       {mode === 'list' && (
-        <div className="space-y-2 max-h-80 overflow-y-auto">
+        <div className="space-y-2 max-h-[38dvh] sm:max-h-80 overflow-y-auto">
           {groups.length === 0 ? (
             <div className="text-center py-8">
               <p className="text-[#8888aa] text-sm">{t('groups.noGroups')}</p>
