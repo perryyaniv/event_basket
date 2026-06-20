@@ -73,7 +73,7 @@ export function AgendaView({ mineOnly = false }) {
                           {mineOnly && <span className="text-xs text-[#8888aa] flex-shrink-0 truncate">({ev.groupId})</span>}
                         </div>
                         <div className="flex items-center gap-3 mt-0.5 text-xs text-[#8888aa]">
-                          <span>{formatTime(ev.start)}{ev.end ? ` – ${formatTime(ev.end)}` : ''}</span>
+                          <span>{ev.allDay ? t('events.allDay') : `${formatTime(ev.start)}${ev.end ? ` – ${formatTime(ev.end)}` : ''}`}</span>
                           {ev.location && <span className="flex items-center gap-0.5"><MapPin size={10} />{ev.location}</span>}
                         </div>
                       </div>

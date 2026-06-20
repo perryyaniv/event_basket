@@ -26,6 +26,7 @@ export function EventForm({ event, onClose, defaultDate }) {
 
   const [title, setTitle]     = useState(event?.title || '');
   const [type, setType]       = useState(event?.type || 'general');
+  const [allDay, setAllDay]   = useState(event?.allDay || false);
   const [start, setStart]     = useState(initialStart);
   const [end, setEnd]         = useState(event?.end ? toInputDate(event.end) : defaultEnd(initialStart));
   const [desc, setDesc]       = useState(event?.description || '');
@@ -44,11 +45,14 @@ export function EventForm({ event, onClose, defaultDate }) {
     e.preventDefault();
     if (!title.trim() || !start) return;
     setLoading(true); setError('');
+    const startDate = allDay ? new Date(start.slice(0, 10) + 'T00:00:00') : new Date(start);
+    const endDate_  = allDay ? new Date(start.slice(0, 10) + 'T23:59:59') : (end ? new Date(end) : null);
     const payload = {
       title: title.trim(),
       type,
-      start: new Date(start),
-      end: end ? new Date(end) : null,
+      allDay,
+      start: startDate,
+      end: endDate_,
       description: desc.trim(),
       location: loc.trim(),
       recurrence: { frequency: freq, endDate: endDate ? new Date(endDate) : null },
@@ -96,16 +100,30 @@ export function EventForm({ event, onClose, defaultDate }) {
         </div>
       </div>
 
+      {/* All day toggle */}
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={() => setAllDay(v => !v)}
+          className={`relative w-10 h-5 rounded-full transition-colors flex-shrink-0 ${allDay ? 'bg-[#c9a96e]' : 'bg-[#2e2e50]'}`}
+        >
+          <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${allDay ? 'translate-x-5' : 'translate-x-0.5'}`} />
+        </button>
+        <span className="text-sm text-[#faf9f6]">{t('events.allDay')}</span>
+      </div>
+
       {/* Start / End */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className={`gap-3 ${allDay ? '' : 'grid grid-cols-1 sm:grid-cols-2'}`}>
         <div>
           <Label>{t('events.start')}</Label>
-          <Input type="datetime-local" value={start} onChange={e => setStart(e.target.value)} required />
+          <Input type={allDay ? 'date' : 'datetime-local'} value={allDay ? start.slice(0, 10) : start} onChange={e => setStart(e.target.value)} required />
         </div>
-        <div>
-          <Label>{t('events.end')}</Label>
-          <Input type="datetime-local" value={end} onChange={e => setEnd(e.target.value)} />
-        </div>
+        {!allDay && (
+          <div>
+            <Label>{t('events.end')}</Label>
+            <Input type="datetime-local" value={end} onChange={e => setEnd(e.target.value)} />
+          </div>
+        )}
       </div>
 
       {/* Recurrence */}

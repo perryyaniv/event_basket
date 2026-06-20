@@ -52,6 +52,7 @@
     "recurrence": "Recurrence",
     "endDate": "End date",
     "noEndDate": "No end date",
+    "allDay": "All day",
     "createdBy": "Created by",
     "noEvents": "No events",
     "save": "Save",

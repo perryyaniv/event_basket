@@ -43,7 +43,7 @@ export function EventDetail({ event, onEdit, onClose }) {
         </div>
         <div className="flex items-center gap-2 text-[#8888aa]">
           <Clock size={14} />
-          <span>{formatTime(event.start)}{event.end ? ` – ${formatTime(event.end)}` : ''}</span>
+          <span>{event.allDay ? t('events.allDay') : `${formatTime(event.start)}${event.end ? ` – ${formatTime(event.end)}` : ''}`}</span>
         </div>
         {event.location && (
           <div className="flex items-center gap-2 text-[#8888aa]">

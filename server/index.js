@@ -45,6 +45,7 @@ const EventSchema = new mongoose.Schema({
   type:        { type: String, enum: EVENT_TYPES, default: 'general' },
   start:       { type: Date, required: true },
   end:         { type: Date, default: null },
+  allDay:      { type: Boolean, default: false },
   description: { type: String, default: '' },
   location:    { type: String, default: '' },
   recurrence:  { type: RecurrenceSchema, default: () => ({ frequency: 'once', endDate: null }) },
