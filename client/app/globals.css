@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/* ── BarberShop Design Tokens ─────────────────────────────────────────── */
+@theme inline {
+  --color-charcoal:        #1a1a2e;
+  --color-charcoal-light:  #222240;
+  --color-charcoal-border: #2e2e50;
+  --color-charcoal-hover:  #2a2a48;
+  --color-gold:            #c9a96e;
+  --color-gold-dim:        #a88850;
+  --color-gold-hover:      #d4ba85;
+  --color-cream:           #faf9f6;
+  --color-cream-dark:      #f0ebe0;
+  --color-muted:           #8888aa;
+  --color-ink:             #2d2d2d;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+  --radius-xl:  20px;
+  --radius-full: 9999px;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--color-charcoal);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  font-feature-settings: 'rlig' 1, 'calt' 1;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* RTL support */
+[dir="rtl"] { direction: rtl; }
+
+/* ── Scrollbar ────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-charcoal); }
+::-webkit-scrollbar-thumb { background: var(--color-charcoal-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
+
+/* ── Focus ring ──────────────────────────────────────────────────────── */
+:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 2px; }
+
+/* ── Animations ──────────────────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,110,0.4); }
+  50%       { box-shadow: 0 0 0 6px rgba(201,169,110,0); }
+}
+
+.animate-fade-in       { animation: fade-in 0.25s ease-out both; }
+.animate-slide-in-right { animation: slide-in-right 0.2s ease-out both; }
+.animate-pulse-gold    { animation: pulse-gold 2s infinite; }

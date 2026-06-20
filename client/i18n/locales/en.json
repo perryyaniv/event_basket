@@ -1,0 +1,107 @@
+{
+  "app": {
+    "name": "EventBasket",
+    "tagline": "Shared Calendar"
+  },
+  "auth": {
+    "welcome": "Welcome",
+    "enterName": "Enter your name",
+    "namePlaceholder": "Your name",
+    "continue": "Continue",
+    "previousUsers": "Previous users",
+    "logout": "Logout"
+  },
+  "groups": {
+    "title": "Groups",
+    "create": "Create group",
+    "join": "Join group",
+    "createTitle": "Create a new group",
+    "joinTitle": "Join a group",
+    "groupName": "Group name",
+    "groupCode": "Group code",
+    "groupCodeHint": "A unique code to share with friends",
+    "codePlaceholder": "Enter code...",
+    "namePlaceholder": "Group name...",
+    "leave": "Leave group",
+    "delete": "Delete group",
+    "deleteConfirm": "Delete this group? All events will be permanently deleted.",
+    "leaveConfirm": "Leave this group?",
+    "notFound": "Group not found",
+    "codeTaken": "Code already taken",
+    "switchGroup": "Switch group",
+    "noGroups": "No groups yet",
+    "noGroupsHint": "Create a new group or join an existing one",
+    "createdBy": "Created by",
+    "copyCode": "Copy code",
+    "codeCopied": "Code copied!"
+  },
+  "events": {
+    "add": "Add event",
+    "edit": "Edit event",
+    "delete": "Delete event",
+    "deleteConfirm": "Delete this event?",
+    "title": "Title",
+    "titlePlaceholder": "Event name...",
+    "type": "Type",
+    "start": "Start",
+    "end": "End",
+    "description": "Description",
+    "descriptionPlaceholder": "Optional description...",
+    "location": "Location",
+    "locationPlaceholder": "Optional location...",
+    "recurrence": "Recurrence",
+    "endDate": "End date",
+    "noEndDate": "No end date",
+    "createdBy": "Created by",
+    "noEvents": "No events",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "eventTypes": {
+    "general": "General",
+    "doctor": "Doctor / Medical",
+    "birthday": "Birthday",
+    "reminder": "Reminder",
+    "meeting": "Meeting",
+    "holiday": "Holiday / Vacation",
+    "sport": "Sport / Fitness",
+    "school": "School",
+    "social": "Social / Party",
+    "family": "Family"
+  },
+  "recurrence": {
+    "once": "Once",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "yearly": "Yearly"
+  },
+  "views": {
+    "month": "Month",
+    "agenda": "Agenda",
+    "mine": "My Events"
+  },
+  "calendar": {
+    "today": "Today",
+    "months": ["January","February","March","April","May","June","July","August","September","October","November","December"],
+    "days": ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+    "daysLong": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    "noEventsThisMonth": "No events this month"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "darkMode": "Dark mode",
+    "lightMode": "Light mode",
+    "language": "Language",
+    "connected": "Connected",
+    "disconnected": "Disconnected"
+  }
+}

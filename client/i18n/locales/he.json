@@ -1,0 +1,107 @@
+{
+  "app": {
+    "name": "EventBasket",
+    "tagline": "לוח שנה משותף"
+  },
+  "auth": {
+    "welcome": "ברוכים הבאים",
+    "enterName": "הכנס את שמך",
+    "namePlaceholder": "השם שלך",
+    "continue": "המשך",
+    "previousUsers": "משתמשים קודמים",
+    "logout": "יציאה"
+  },
+  "groups": {
+    "title": "קבוצות",
+    "create": "צור קבוצה",
+    "join": "הצטרף לקבוצה",
+    "createTitle": "צור קבוצה חדשה",
+    "joinTitle": "הצטרף לקבוצה",
+    "groupName": "שם הקבוצה",
+    "groupCode": "קוד הקבוצה",
+    "groupCodeHint": "קוד ייחודי לשיתוף עם חברים",
+    "codePlaceholder": "הכנס קוד...",
+    "namePlaceholder": "שם הקבוצה...",
+    "leave": "עזוב קבוצה",
+    "delete": "מחק קבוצה",
+    "deleteConfirm": "האם למחוק את הקבוצה? כל האירועים יימחקו לצמיתות.",
+    "leaveConfirm": "האם לעזוב את הקבוצה?",
+    "notFound": "קבוצה לא נמצאה",
+    "codeTaken": "הקוד כבר תפוס",
+    "switchGroup": "החלף קבוצה",
+    "noGroups": "אין קבוצות עדיין",
+    "noGroupsHint": "צור קבוצה חדשה או הצטרף לקיימת",
+    "createdBy": "נוצר על ידי",
+    "copyCode": "העתק קוד",
+    "codeCopied": "הקוד הועתק!"
+  },
+  "events": {
+    "add": "הוסף אירוע",
+    "edit": "ערוך אירוע",
+    "delete": "מחק אירוע",
+    "deleteConfirm": "האם למחוק אירוע זה?",
+    "title": "כותרת",
+    "titlePlaceholder": "שם האירוע...",
+    "type": "סוג",
+    "start": "תחילה",
+    "end": "סיום",
+    "description": "תיאור",
+    "descriptionPlaceholder": "תיאור אופציונלי...",
+    "location": "מיקום",
+    "locationPlaceholder": "מיקום אופציונלי...",
+    "recurrence": "חזרה",
+    "endDate": "תאריך סיום",
+    "noEndDate": "ללא תאריך סיום",
+    "createdBy": "נוצר על ידי",
+    "noEvents": "אין אירועים",
+    "save": "שמור",
+    "cancel": "ביטול"
+  },
+  "eventTypes": {
+    "general": "כללי",
+    "doctor": "רופא / רפואי",
+    "birthday": "יום הולדת",
+    "reminder": "תזכורת",
+    "meeting": "פגישה",
+    "holiday": "חופשה / חג",
+    "sport": "ספורט / כושר",
+    "school": "לימודים",
+    "social": "חברתי / מסיבה",
+    "family": "משפחה"
+  },
+  "recurrence": {
+    "once": "פעם אחת",
+    "daily": "יומי",
+    "weekly": "שבועי",
+    "monthly": "חודשי",
+    "yearly": "שנתי"
+  },
+  "views": {
+    "month": "חודש",
+    "agenda": "יומן",
+    "mine": "האירועים שלי"
+  },
+  "calendar": {
+    "today": "היום",
+    "months": ["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"],
+    "days": ["א","ב","ג","ד","ה","ו","ש"],
+    "daysLong": ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"],
+    "noEventsThisMonth": "אין אירועים בחודש זה"
+  },
+  "common": {
+    "loading": "טוען...",
+    "error": "שגיאה",
+    "success": "הצלחה",
+    "confirm": "אישור",
+    "cancel": "ביטול",
+    "save": "שמור",
+    "delete": "מחק",
+    "edit": "ערוך",
+    "close": "סגור",
+    "darkMode": "מצב כהה",
+    "lightMode": "מצב בהיר",
+    "language": "שפה",
+    "connected": "מחובר",
+    "disconnected": "מנותק"
+  }
+}
