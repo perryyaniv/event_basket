@@ -7,6 +7,7 @@ import { Header } from './Header';
 import { MonthView } from './MonthView';
 import { AgendaView } from './AgendaView';
 import { ToastContainer } from './ui/Toast';
+import { ProgressBar } from './ui/ProgressBar';
 import { Modal } from './ui/Modal';
 import { EventForm } from './EventForm';
 import { Button } from './ui/Button';
@@ -53,6 +54,7 @@ function CalendarApp() {
         <EventForm onClose={() => setAddModal(false)} />
       </Modal>
 
+      <ProgressBar />
       <ToastContainer />
     </div>
   );
