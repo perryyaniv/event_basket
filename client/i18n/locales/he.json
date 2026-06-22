@@ -60,14 +60,14 @@
   },
   "eventTypes": {
     "general": "כללי",
-    "doctor": "רופא / רפואי",
+    "doctor": "רפואי",
     "birthday": "יום הולדת",
     "reminder": "תזכורת",
     "meeting": "פגישה",
-    "holiday": "חופשה / חג",
-    "sport": "ספורט / כושר",
+    "holiday": "חופשה",
+    "sport": "ספורט",
     "school": "לימודים",
-    "social": "חברתי / מסיבה",
+    "social": "חג",
     "family": "משפחה"
   },
   "recurrence": {
