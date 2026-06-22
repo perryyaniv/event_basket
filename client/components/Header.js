@@ -42,11 +42,11 @@ export function Header({ view, setView }) {
 
         {/* App name + status — inline-end (LEFT in Hebrew, RIGHT in English) */}
         <div className="flex items-center gap-2 flex-shrink-0">
-          <CalendarDays size={22} className="text-[#c9a96e]" />
+          <ConnectionIndicator />
           <span className="font-bold text-[var(--eb-text)] text-lg tracking-tight">
             Event<span className="text-[#c9a96e]">Basket</span>
           </span>
-          <ConnectionIndicator />
+          <CalendarDays size={22} className="text-[#c9a96e]" />
         </div>
       </header>
 
