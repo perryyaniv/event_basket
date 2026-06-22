@@ -105,7 +105,7 @@ export function AgendaView({ mineOnly = false }) {
         />
       </Modal>
       <Modal open={!!editEvent} onClose={() => setEditEvent(null)} title={t('events.edit')} className="max-w-lg">
-        <EventForm event={editEvent} onClose={() => setEditEvent(null)} />
+        <EventForm key={editEvent?._id} event={editEvent} onClose={() => setEditEvent(null)} />
       </Modal>
     </div>
   );

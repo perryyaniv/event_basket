@@ -41,7 +41,7 @@ export function EventForm({ event, onClose, defaultDate }) {
   const [desc, setDesc]       = useState(event?.description || '');
   const [loc, setLoc]         = useState(event?.location || '');
   const [freq, setFreq]       = useState(event?.recurrence?.frequency || 'once');
-  const [endDate, setEndDate] = useState(event?.recurrence?.endDate ? new Date(event.recurrence.endDate).toISOString().slice(0, 10) : '');
+  const [endDate, setEndDate] = useState(event?.recurrence?.endDate ? toInputDate(event.recurrence.endDate).slice(0, 10) : '');
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState('');
 
@@ -49,6 +49,20 @@ export function EventForm({ event, onClose, defaultDate }) {
   useEffect(() => {
     if (type === 'birthday' && freq === 'once') setFreq('yearly');
   }, [type]);
+
+  // When toggling allDay, reformat start/end to keep values valid
+  useEffect(() => {
+    if (allDay) {
+      // strip time — keep only date portion
+      setStart(prev => prev.slice(0, 10) + 'T00:00');
+    } else {
+      // ensure start has a time component
+      if (!start.includes('T') || start.endsWith('T00:00')) {
+        setStart(prev => prev.slice(0, 10) + 'T09:00');
+        setEnd(prev => prev.slice(0, 10) + 'T10:00');
+      }
+    }
+  }, [allDay]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

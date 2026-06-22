@@ -132,7 +132,7 @@ export function MonthView() {
         />
       </Modal>
       <Modal open={!!editEvent} onClose={() => setEditEvent(null)} title={t('events.edit')}>
-        <EventForm event={editEvent} onClose={() => setEditEvent(null)} />
+        <EventForm key={editEvent?._id} event={editEvent} onClose={() => setEditEvent(null)} />
       </Modal>
     </div>
   );
