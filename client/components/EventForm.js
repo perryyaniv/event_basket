@@ -7,7 +7,16 @@ import { Button } from './ui/Button';
 import { Input, Textarea, Label } from './ui/Input';
 import { EVENT_TYPES, RECURRENCE_OPTIONS } from '@/lib/utils';
 
-const toInputDate = (d) => d ? new Date(d).toISOString().slice(0, 16) : '';
+const toInputDate = (d) => {
+  if (!d) return '';
+  const date = new Date(d);
+  const Y  = date.getFullYear();
+  const M  = String(date.getMonth() + 1).padStart(2, '0');
+  const D  = String(date.getDate()).padStart(2, '0');
+  const h  = String(date.getHours()).padStart(2, '0');
+  const m  = String(date.getMinutes()).padStart(2, '0');
+  return `${Y}-${M}-${D}T${h}:${m}`;
+};
 const defaultEnd  = (start) => {
   const d = new Date(start || Date.now());
   d.setHours(d.getHours() + 1);
