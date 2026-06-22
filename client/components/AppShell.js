@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 function CalendarApp() {
   const { t } = useTranslation();
   const { activeGroup } = useApp();
+  const { connected } = useEvents();
   const [view, setView] = useState('month');
   const [addModal, setAddModal] = useState(false);
 
@@ -40,9 +41,11 @@ function CalendarApp() {
 
           {/* FAB */}
           <button
-            onClick={() => setAddModal(true)}
-            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#c9a96e] text-[var(--eb-bg)] shadow-xl hover:bg-[#d4ba85] active:scale-95 transition-all flex items-center justify-center z-20"
-            title={t('events.add')}
+            onClick={() => connected && setAddModal(true)}
+            disabled={!connected}
+            className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl transition-all flex items-center justify-center z-20
+              ${connected ? 'bg-[#c9a96e] text-[var(--eb-bg)] hover:bg-[#d4ba85] active:scale-95' : 'bg-[var(--eb-border)] text-[var(--eb-muted)] cursor-not-allowed opacity-50'}`}
+            title={connected ? t('events.add') : t('common.disconnected')}
           >
             <Plus size={24} strokeWidth={2.5} />
           </button>

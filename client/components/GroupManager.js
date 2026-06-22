@@ -2,12 +2,13 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useApp } from '@/context/AppContext';
+import { useEvents } from '@/context/EventsContext';
 import { Button } from './ui/Button';
 import { Input, Label } from './ui/Input';
 import { Modal } from './ui/Modal';
 import { Plus, UserPlus, Copy, Check, Trash2, LogOut, Eye, EyeOff } from 'lucide-react';
 
-function GroupCard({ group, isActive, onSwitch, onLeave, onDelete, username }) {
+function GroupCard({ group, isActive, onSwitch, onLeave, onDelete, username, connected }) {
   const { t } = useTranslation();
   const [copied, setCopied]     = useState(false);
   const [codeVisible, setCodeVisible] = useState(false);
@@ -36,7 +37,7 @@ function GroupCard({ group, isActive, onSwitch, onLeave, onDelete, username }) {
         </div>
         <div className="flex items-center gap-1 flex-shrink-0">
           {isCreator ? (
-            <button onClick={() => onDelete(group)} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('groups.delete')}>
+            <button onClick={() => onDelete(group)} disabled={!connected} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed" title={t('groups.delete')}>
               <Trash2 size={14} />
             </button>
           ) : (
@@ -74,6 +75,7 @@ function GroupCard({ group, isActive, onSwitch, onLeave, onDelete, username }) {
 export function GroupManager({ onClose }) {
   const { t } = useTranslation();
   const { username, groups, activeGroup, createGroup, joinGroup, leaveGroup, deleteGroup, switchGroup, showToast } = useApp();
+  const { connected } = useEvents();
   const [mode, setMode] = useState('list'); // list | create | join
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
@@ -134,10 +136,10 @@ export function GroupManager({ onClose }) {
       {/* Action buttons */}
       {mode === 'list' && (
         <div className="flex gap-2">
-          <Button variant="gold" size="sm" className="flex-1" onClick={() => { setMode('create'); setError(''); setName(''); setCode(''); }}>
+          <Button variant="gold" size="sm" className="flex-1" disabled={!connected} onClick={() => { setMode('create'); setError(''); setName(''); setCode(''); }}>
             <Plus size={15} /> {t('groups.create')}
           </Button>
-          <Button variant="outline" size="sm" className="flex-1" onClick={() => { setMode('join'); setError(''); setCode(''); }}>
+          <Button variant="outline" size="sm" className="flex-1" disabled={!connected} onClick={() => { setMode('join'); setError(''); setCode(''); }}>
             <UserPlus size={15} /> {t('groups.join')}
           </Button>
         </div>
@@ -185,6 +187,7 @@ export function GroupManager({ onClose }) {
               onLeave={(group) => setConfirmGroup({ group, action: 'leave' })}
               onDelete={(group) => setConfirmGroup({ group, action: 'delete' })}
               username={username}
+              connected={connected}
             />
           ))}
         </div>

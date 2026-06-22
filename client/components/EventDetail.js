@@ -8,7 +8,7 @@ import { MapPin, Calendar, RefreshCw, User, Clock } from 'lucide-react';
 
 export function EventDetail({ event, onEdit, onClose }) {
   const { t } = useTranslation();
-  const { deleteEvent } = useEvents();
+  const { deleteEvent, connected } = useEvents();
   const { username, showToast } = useApp();
   if (!event) return null;
 
@@ -68,9 +68,14 @@ export function EventDetail({ event, onEdit, onClose }) {
 
       {/* Actions (creator only) */}
       {isCreator && (
-        <div className="flex gap-2 pt-2 border-t border-[var(--eb-border)]">
-          <Button variant="charcoal" size="sm" onClick={onEdit} className="flex-1">{t('common.edit')}</Button>
-          <Button variant="destructive" size="sm" onClick={handleDelete} className="flex-1">{t('common.delete')}</Button>
+        <div className="flex flex-col gap-2 pt-2 border-t border-[var(--eb-border)]">
+          {!connected && (
+            <p className="text-xs text-center text-[var(--eb-muted)]">{t('common.disconnected')} — {t('common.readOnly', 'צפייה בלבד')}</p>
+          )}
+          <div className="flex gap-2">
+            <Button variant="charcoal" size="sm" onClick={onEdit} disabled={!connected} className="flex-1">{t('common.edit')}</Button>
+            <Button variant="destructive" size="sm" onClick={handleDelete} disabled={!connected} className="flex-1">{t('common.delete')}</Button>
+          </div>
         </div>
       )}
     </div>
