@@ -99,10 +99,10 @@ export function EventForm({ event, onClose, defaultDate }) {
               key={et.key}
               type="button"
               onClick={() => setType(et.key)}
-              className={`flex flex-col items-center gap-0.5 p-1.5 rounded-lg border transition-all ${type === et.key ? 'border-[#c9a96e] bg-[#c9a96e]/10' : 'border-[var(--eb-border)]'}`}
+              className={`flex flex-col items-center gap-1 p-2 rounded-lg border transition-all ${type === et.key ? 'border-[#c9a96e] bg-[#c9a96e]/10' : 'border-[var(--eb-border)]'}`}
               title={t(`eventTypes.${et.key}`)}
             >
-              <span className="text-sm sm:text-base leading-none">{et.emoji}</span>
+              <span className="text-2xl leading-none">{et.emoji}</span>
               <span style={{ fontSize: '9px', color: type === et.key ? et.color : '#8888aa' }} className="truncate w-full text-center leading-tight">{t(`eventTypes.${et.key}`)}</span>
             </button>
           ))}
