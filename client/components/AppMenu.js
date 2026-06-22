@@ -20,8 +20,8 @@ export function AppMenu({ open, onClose }) {
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
-      {/* Drawer */}
-      <div className="relative ms-auto w-80 max-w-[90vw] h-full bg-[var(--eb-surface)] border-s border-[var(--eb-border)] flex flex-col shadow-2xl animate-slide-in-right">
+      {/* Drawer — slides in from the inline-end side (left in RTL, right in LTR) */}
+      <div className="relative ms-auto w-80 max-w-[90vw] h-full bg-[var(--eb-surface)] border-s border-[var(--eb-border)] flex flex-col shadow-2xl animate-fade-in">
 
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--eb-border)]">
