@@ -27,7 +27,7 @@ export function Header({ view, setView }) {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <CalendarDays size={22} className="text-[#c9a96e]" />
-            <span className="font-bold text-[var(--eb-text)] text-lg hidden sm:inline">
+            <span className="font-bold text-[var(--eb-text)] text-lg">
               Event<span className="text-[#c9a96e]">Basket</span>
             </span>
           </div>
