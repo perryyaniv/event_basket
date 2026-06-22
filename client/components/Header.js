@@ -15,16 +15,13 @@ export function Header({ view, setView }) {
     <div className="sticky top-0 z-30 flex-shrink-0">
       <header className="flex items-center justify-between px-4 py-3 border-b border-[var(--eb-border)] bg-[var(--eb-bg)]/90 backdrop-blur-sm">
 
-        {/* Controls — inline-start (RIGHT in Hebrew, LEFT in English) */}
-        <div className="flex items-center gap-1 flex-shrink-0">
-          <button
-            onClick={() => setMenuOpen(true)}
-            className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)] transition-colors"
-          >
-            <Menu size={20} />
-          </button>
-          <ConnectionIndicator />
-        </div>
+        {/* Menu button — inline-start (RIGHT in Hebrew, LEFT in English) */}
+        <button
+          onClick={() => setMenuOpen(true)}
+          className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)] transition-colors flex-shrink-0"
+        >
+          <Menu size={20} />
+        </button>
 
         {/* Desktop view tabs — center */}
         <div className="hidden md:flex items-center bg-[var(--eb-surface)] rounded-xl border border-[var(--eb-border)] p-1 gap-0.5">
@@ -43,12 +40,13 @@ export function Header({ view, setView }) {
           ))}
         </div>
 
-        {/* App name — inline-end (LEFT in Hebrew, RIGHT in English) */}
+        {/* App name + status — inline-end (LEFT in Hebrew, RIGHT in English) */}
         <div className="flex items-center gap-2 flex-shrink-0">
           <CalendarDays size={22} className="text-[#c9a96e]" />
           <span className="font-bold text-[var(--eb-text)] text-lg tracking-tight">
             Event<span className="text-[#c9a96e]">Basket</span>
           </span>
+          <ConnectionIndicator />
         </div>
       </header>
 
