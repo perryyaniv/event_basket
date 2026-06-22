@@ -5,12 +5,18 @@ import { useApp } from '@/context/AppContext';
 import { Button } from './ui/Button';
 import { Input, Label } from './ui/Input';
 import { Modal } from './ui/Modal';
-import { Plus, LogIn, Copy, Check, Trash2, LogOut, ChevronDown } from 'lucide-react';
+import { Plus, LogIn, Copy, Check, Trash2, LogOut, Eye, EyeOff } from 'lucide-react';
 
 function GroupCard({ group, isActive, onSwitch, onLeave, onDelete, username }) {
   const { t } = useTranslation();
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied]     = useState(false);
+  const [codeVisible, setCodeVisible] = useState(false);
   const isCreator = group.createdBy === username;
+
+  const revealCode = () => {
+    setCodeVisible(true);
+    setTimeout(() => setCodeVisible(false), 4000);
+  };
 
   const copyCode = () => {
     navigator.clipboard.writeText(group.code);
@@ -29,13 +35,20 @@ function GroupCard({ group, isActive, onSwitch, onLeave, onDelete, username }) {
           <p className="text-xs text-[var(--eb-muted)] mt-0.5">{t('groups.createdBy')}: {group.createdBy}</p>
         </div>
         <div className="flex items-center gap-1 flex-shrink-0">
-          <button onClick={copyCode} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-[#c9a96e] hover:bg-[#c9a96e]/10 transition-colors" title={t('groups.copyCode')}>
-            {copied ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
-          </button>
           {isCreator ? (
-            <button onClick={() => onDelete(group)} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('groups.delete')}>
-              <Trash2 size={14} />
-            </button>
+            <>
+              {codeVisible && (
+                <button onClick={copyCode} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-[#c9a96e] hover:bg-[#c9a96e]/10 transition-colors" title={t('groups.copyCode')}>
+                  {copied ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
+                </button>
+              )}
+              <button onClick={revealCode} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-[#c9a96e] hover:bg-[#c9a96e]/10 transition-colors" title={t('groups.copyCode')}>
+                {codeVisible ? <EyeOff size={14} /> : <Eye size={14} />}
+              </button>
+              <button onClick={() => onDelete(group)} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('groups.delete')}>
+                <Trash2 size={14} />
+              </button>
+            </>
           ) : (
             <button onClick={() => onLeave(group)} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('groups.leave')}>
               <LogOut size={14} />
@@ -44,7 +57,13 @@ function GroupCard({ group, isActive, onSwitch, onLeave, onDelete, username }) {
         </div>
       </div>
       <div className="flex items-center justify-between mt-3">
-        <span className="text-xs font-mono bg-[var(--eb-border)] px-2 py-0.5 rounded text-[var(--eb-muted)]">{group.code}</span>
+        {isCreator ? (
+          <span className="text-xs font-mono bg-[var(--eb-border)] px-2 py-0.5 rounded text-[var(--eb-muted)] tracking-widest">
+            {codeVisible ? group.code : '••••••••'}
+          </span>
+        ) : (
+          <span />
+        )}
         {!isActive && (
           <Button variant="outline" size="sm" onClick={() => onSwitch(group)}>
             {t('groups.switchGroup')}
