@@ -1,17 +1,27 @@
 ﻿'use client';
-import { useState } from 'react';
+'use client';
+import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useApp } from '@/context/AppContext';
 import { Modal } from './ui/Modal';
 import { GroupManager } from './GroupManager';
 import { ConnectionIndicator } from './ui/ConnectionIndicator';
 import { Button } from './ui/Button';
-import { CalendarDays, Users, Sun, Moon, Globe, LogOut, ChevronDown, Plus } from 'lucide-react';
+import { CalendarDays, Users, Sun, Moon, Globe, LogOut, ChevronDown, User } from 'lucide-react';
 
 export function Header({ view, setView }) {
   const { t, i18n } = useTranslation();
   const { username, logout, activeGroup, darkMode, setDarkMode, language, setLanguage } = useApp();
   const [groupModal, setGroupModal] = useState(false);
+  const [userMenu, setUserMenu]     = useState(false);
+  const userMenuRef = useRef(null);
+
+  useEffect(() => {
+    if (!userMenu) return;
+    const handler = (e) => { if (userMenuRef.current && !userMenuRef.current.contains(e.target)) setUserMenu(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [userMenu]);
 
   const toggleLang = () => {
     const next = language === 'he' ? 'en' : 'he';
@@ -71,10 +81,28 @@ export function Header({ view, setView }) {
             {darkMode ? <Sun size={16} /> : <Moon size={16} />}
           </button>
           <div className="w-px h-5 bg-[var(--eb-border)]" />
-          <span className="text-xs text-[var(--eb-muted)] hidden sm:inline">{username}</span>
-          <button onClick={logout} className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('auth.logout')}>
-            <LogOut size={16} />
-          </button>
+          {/* User menu */}
+          <div className="relative" ref={userMenuRef}>
+            <button
+              onClick={() => setUserMenu(v => !v)}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg hover:bg-[var(--eb-surface)] transition-colors"
+            >
+              <User size={14} className="text-[var(--eb-muted)]" />
+              <span className="text-xs text-[var(--eb-text)] font-medium max-w-[80px] truncate">{username}</span>
+              <ChevronDown size={12} className="text-[var(--eb-muted)]" />
+            </button>
+            {userMenu && (
+              <div className="absolute end-0 top-full mt-1 w-36 bg-[var(--eb-surface)] border border-[var(--eb-border)] rounded-xl shadow-xl z-50 overflow-hidden animate-fade-in">
+                <button
+                  onClick={() => { logout(); setUserMenu(false); }}
+                  className="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 transition-colors"
+                >
+                  <LogOut size={14} />
+                  {t('auth.logout')}
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
