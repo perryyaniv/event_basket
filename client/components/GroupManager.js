@@ -5,7 +5,7 @@ import { useApp } from '@/context/AppContext';
 import { Button } from './ui/Button';
 import { Input, Label } from './ui/Input';
 import { Modal } from './ui/Modal';
-import { Plus, LogIn, Copy, Check, Trash2, LogOut, Eye, EyeOff } from 'lucide-react';
+import { Plus, UserPlus, Copy, Check, Trash2, LogOut, Eye, EyeOff } from 'lucide-react';
 
 function GroupCard({ group, isActive, onSwitch, onLeave, onDelete, username }) {
   const { t } = useTranslation();
@@ -138,7 +138,7 @@ export function GroupManager({ onClose }) {
             <Plus size={15} /> {t('groups.create')}
           </Button>
           <Button variant="outline" size="sm" className="flex-1" onClick={() => { setMode('join'); setError(''); setCode(''); }}>
-            <LogIn size={15} /> {t('groups.join')}
+            <UserPlus size={15} /> {t('groups.join')}
           </Button>
         </div>
       )}
