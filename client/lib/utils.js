@@ -10,7 +10,7 @@ export const EVENT_TYPES = [
   { key: 'doctor',   color: '#e05252', emoji: '🏥' },
   { key: 'birthday', color: '#e8699a', emoji: '🎂' },
   { key: 'reminder', color: '#f0c040', emoji: '🔔' },
-  { key: 'meeting',  color: '#9b6ddf', emoji: '👥' },
+  { key: 'meeting',  color: '#6b8cba', emoji: '🚗' },
   { key: 'holiday',  color: '#3ec9c9', emoji: '✈️' },
   { key: 'sport',    color: '#f07840', emoji: '🏋️' },
   { key: 'school',   color: '#5b7ec9', emoji: '🎓' },
