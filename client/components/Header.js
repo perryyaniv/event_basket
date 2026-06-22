@@ -5,20 +5,11 @@ import { useApp } from '@/context/AppContext';
 import { AppMenu } from './AppMenu';
 import { ConnectionIndicator } from './ui/ConnectionIndicator';
 import { Modal } from './ui/Modal';
-import { CalendarDays, Sun, Moon, Globe, Menu } from 'lucide-react';
+import { CalendarDays, Menu } from 'lucide-react';
 
 export function Header({ view, setView }) {
   const { t, i18n } = useTranslation();
-  const { darkMode, setDarkMode, language, setLanguage } = useApp();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const toggleLang = () => {
-    const next = language === 'he' ? 'en' : 'he';
-    setLanguage(next);
-    i18n.changeLanguage(next);
-    document.documentElement.dir  = next === 'he' ? 'rtl' : 'ltr';
-    document.documentElement.lang = next;
-  };
 
   return (
     <div className="sticky top-0 z-30 flex-shrink-0">
@@ -26,19 +17,13 @@ export function Header({ view, setView }) {
 
         {/* Controls — inline-start (RIGHT in Hebrew, LEFT in English) */}
         <div className="flex items-center gap-1 flex-shrink-0">
-          <ConnectionIndicator />
-          <button onClick={toggleLang} className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)] transition-colors">
-            <Globe size={16} />
-          </button>
-          <button onClick={() => setDarkMode(d => !d)} className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)] transition-colors">
-            {darkMode ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
           <button
             onClick={() => setMenuOpen(true)}
             className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)] transition-colors"
           >
             <Menu size={20} />
           </button>
+          <ConnectionIndicator />
         </div>
 
         {/* Desktop view tabs — center */}
