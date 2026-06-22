@@ -36,19 +36,9 @@ function GroupCard({ group, isActive, onSwitch, onLeave, onDelete, username }) {
         </div>
         <div className="flex items-center gap-1 flex-shrink-0">
           {isCreator ? (
-            <>
-              {codeVisible && (
-                <button onClick={copyCode} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-[#c9a96e] hover:bg-[#c9a96e]/10 transition-colors" title={t('groups.copyCode')}>
-                  {copied ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
-                </button>
-              )}
-              <button onClick={revealCode} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-[#c9a96e] hover:bg-[#c9a96e]/10 transition-colors" title={t('groups.copyCode')}>
-                {codeVisible ? <EyeOff size={14} /> : <Eye size={14} />}
-              </button>
-              <button onClick={() => onDelete(group)} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('groups.delete')}>
-                <Trash2 size={14} />
-              </button>
-            </>
+            <button onClick={() => onDelete(group)} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('groups.delete')}>
+              <Trash2 size={14} />
+            </button>
           ) : (
             <button onClick={() => onLeave(group)} className="p-1.5 rounded-lg text-[var(--eb-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('groups.leave')}>
               <LogOut size={14} />
@@ -58,9 +48,16 @@ function GroupCard({ group, isActive, onSwitch, onLeave, onDelete, username }) {
       </div>
       <div className="flex items-center justify-between mt-3">
         {isCreator ? (
-          <span className="text-xs font-mono bg-[var(--eb-border)] px-2 py-0.5 rounded text-[var(--eb-muted)] tracking-widest">
-            {codeVisible ? group.code : '••••••••'}
-          </span>
+          <div className="flex items-center gap-1">
+            <span className="text-xs font-mono bg-[var(--eb-border)] px-2 py-0.5 rounded text-[var(--eb-muted)] tracking-widest">
+              {codeVisible ? group.code : '••••••'}
+            </span>
+            <button onClick={codeVisible ? copyCode : revealCode} className="p-1 rounded text-[var(--eb-muted)] hover:text-[#c9a96e] transition-colors">
+              {codeVisible
+                ? (copied ? <Check size={13} className="text-green-400" /> : <Copy size={13} />)
+                : <Eye size={13} />}
+            </button>
+          </div>
         ) : (
           <span />
         )}
