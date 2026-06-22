@@ -1,7 +1,7 @@
 ﻿'use client';
 import { useState } from 'react';
 import { useApp } from '@/context/AppContext';
-import { EventsProvider } from '@/context/EventsContext';
+import { EventsProvider, useEvents } from '@/context/EventsContext';
 import { LoginScreen } from './LoginScreen';
 import { Header } from './Header';
 import { MonthView } from './MonthView';
