@@ -24,12 +24,21 @@ export function Header({ view, setView }) {
     <div className="sticky top-0 z-30 flex-shrink-0">
       <header className="flex items-center justify-between px-4 py-3 border-b border-[var(--eb-border)] bg-[var(--eb-bg)]/90 backdrop-blur-sm">
 
-        {/* App name — inline-start (RIGHT in Hebrew, LEFT in English) */}
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <CalendarDays size={22} className="text-[#c9a96e]" />
-          <span className="font-bold text-[var(--eb-text)] text-lg tracking-tight">
-            Event<span className="text-[#c9a96e]">Basket</span>
-          </span>
+        {/* Controls — inline-start (RIGHT in Hebrew, LEFT in English) */}
+        <div className="flex items-center gap-1 flex-shrink-0">
+          <ConnectionIndicator />
+          <button onClick={toggleLang} className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)] transition-colors">
+            <Globe size={16} />
+          </button>
+          <button onClick={() => setDarkMode(d => !d)} className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)] transition-colors">
+            {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+          <button
+            onClick={() => setMenuOpen(true)}
+            className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)] transition-colors"
+          >
+            <Menu size={20} />
+          </button>
         </div>
 
         {/* Desktop view tabs — center */}
@@ -49,21 +58,12 @@ export function Header({ view, setView }) {
           ))}
         </div>
 
-        {/* Controls — inline-end (LEFT in Hebrew, RIGHT in English) */}
-        <div className="flex items-center gap-1 flex-shrink-0">
-          <ConnectionIndicator />
-          <button onClick={toggleLang} className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)] transition-colors">
-            <Globe size={16} />
-          </button>
-          <button onClick={() => setDarkMode(d => !d)} className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)] transition-colors">
-            {darkMode ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
-          <button
-            onClick={() => setMenuOpen(true)}
-            className="p-2 rounded-lg text-[var(--eb-muted)] hover:text-[var(--eb-text)] hover:bg-[var(--eb-surface)] transition-colors"
-          >
-            <Menu size={20} />
-          </button>
+        {/* App name — inline-end (LEFT in Hebrew, RIGHT in English) */}
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <CalendarDays size={22} className="text-[#c9a96e]" />
+          <span className="font-bold text-[var(--eb-text)] text-lg tracking-tight">
+            Event<span className="text-[#c9a96e]">Basket</span>
+          </span>
         </div>
       </header>
 
