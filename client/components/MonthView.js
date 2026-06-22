@@ -75,16 +75,14 @@ export function MonthView() {
           if (!currentMonth) return <div key={i} className="border-r border-b border-[var(--eb-border)]" />;
           const dayEvents = eventsOnDay(date);
           const today = isToday(date);
+          const firstColor = dayEvents.length > 0 ? getEventType(dayEvents[0].type).color : null;
           return (
             <div
               key={i}
               onClick={() => setAddModal(date)}
-              className={`border-r border-b border-[var(--eb-border)] p-0.5 sm:p-1 cursor-pointer transition-colors overflow-hidden
-                ${today
-                  ? 'bg-[#c9a96e]/8'
-                  : dayEvents.length > 0
-                    ? 'bg-[var(--eb-surface)] ring-2 ring-inset ring-[#c9a96e]/50 hover:ring-[#c9a96e]/80'
-                    : 'hover:bg-[var(--eb-surface)]'}`}
+              className={`border-r border-b border-[var(--eb-border)] p-0.5 sm:p-1 cursor-pointer transition-all overflow-hidden
+                ${today ? 'bg-[#c9a96e]/8' : dayEvents.length > 0 ? 'bg-[var(--eb-surface)]' : 'hover:bg-[var(--eb-surface)]'}`}
+              style={firstColor ? { boxShadow: `inset 0 0 0 2px ${firstColor}60` } : {}}
             >
               {/* Day number */}
               <div className={`text-[10px] sm:text-xs w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full mb-0.5
