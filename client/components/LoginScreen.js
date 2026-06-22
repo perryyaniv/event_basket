@@ -9,7 +9,7 @@ import { CalendarDays } from 'lucide-react';
 export function LoginScreen() {
   const { login, pastUsers } = useApp();
   const { t } = useTranslation();
-  const [name, setName] = useState('');
+  const [name, setName] = useState(pastUsers[0] || '');
 
   const handleSubmit = (e) => {
     e.preventDefault();
