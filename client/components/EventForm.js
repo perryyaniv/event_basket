@@ -5,13 +5,22 @@ import { useEvents } from '@/context/EventsContext';
 import { useApp } from '@/context/AppContext';
 import { Button } from './ui/Button';
 import { Input, Textarea, Label } from './ui/Input';
-import { DateTimePicker } from './ui/DateTimePicker';
 import { EVENT_TYPES, RECURRENCE_OPTIONS } from '@/lib/utils';
 
-const defaultEnd = (start) => {
+const toInputDate = (d) => {
+  if (!d) return '';
+  const date = new Date(d);
+  const Y  = date.getFullYear();
+  const M  = String(date.getMonth() + 1).padStart(2, '0');
+  const D  = String(date.getDate()).padStart(2, '0');
+  const h  = String(date.getHours()).padStart(2, '0');
+  const m  = String(date.getMinutes()).padStart(2, '0');
+  return `${Y}-${M}-${D}T${h}:${m}`;
+};
+const defaultEnd  = (start) => {
   const d = new Date(start || Date.now());
   d.setHours(d.getHours() + 1);
-  return d;
+  return toInputDate(d);
 };
 
 export function EventForm({ event, onClose, defaultDate }) {
@@ -20,13 +29,15 @@ export function EventForm({ event, onClose, defaultDate }) {
   const { showToast } = useApp();
   const isEdit = !!event;
 
-  const initialStart = event?.start ? new Date(event.start) : defaultDate ? new Date(defaultDate) : new Date();
+  const initialStart = event?.start
+    ? toInputDate(event.start)
+    : defaultDate ? toInputDate(new Date(defaultDate)) : toInputDate(new Date());
 
   const [title, setTitle]     = useState(event?.title || '');
   const [type, setType]       = useState(event?.type || 'general');
   const [allDay, setAllDay]   = useState(event?.allDay || false);
   const [start, setStart]     = useState(initialStart);
-  const [end, setEnd]         = useState(event?.end ? new Date(event.end) : defaultEnd(initialStart));
+  const [end, setEnd]         = useState(event?.end ? toInputDate(event.end) : defaultEnd(initialStart));
   const [desc, setDesc]       = useState(event?.description || '');
   const [loc, setLoc]         = useState(event?.location || '');
   const [freq, setFreq]       = useState(event?.recurrence?.frequency || 'once');
@@ -43,8 +54,8 @@ export function EventForm({ event, onClose, defaultDate }) {
     e.preventDefault();
     if (!title.trim() || !start) return;
     setLoading(true); setError('');
-    const startDate = allDay ? new Date(start.getFullYear(), start.getMonth(), start.getDate(), 0, 0, 0) : start;
-    const endDate_  = allDay ? new Date(start.getFullYear(), start.getMonth(), start.getDate(), 23, 59, 59) : (end || null);
+    const startDate = allDay ? new Date(start.slice(0, 10) + 'T00:00:00') : new Date(start);
+    const endDate_  = allDay ? new Date(start.slice(0, 10) + 'T23:59:59') : (end ? new Date(end) : null);
     const payload = {
       title: title.trim(),
       type,
@@ -114,12 +125,12 @@ export function EventForm({ event, onClose, defaultDate }) {
       <div className={`gap-3 ${allDay ? '' : 'grid grid-cols-1 sm:grid-cols-2'}`}>
         <div>
           <Label>{t('events.start')}</Label>
-          <DateTimePicker value={start} onChange={setStart} allDay={allDay} placeholder={t('events.start')} />
+          <Input type={allDay ? 'date' : 'datetime-local'} value={allDay ? start.slice(0, 10) : start} onChange={e => setStart(e.target.value)} required />
         </div>
         {!allDay && (
           <div>
             <Label>{t('events.end')}</Label>
-            <DateTimePicker value={end} onChange={setEnd} allDay={false} placeholder={t('events.end')} />
+            <Input type="datetime-local" value={end} onChange={e => setEnd(e.target.value)} />
           </div>
         )}
       </div>
@@ -142,12 +153,7 @@ export function EventForm({ event, onClose, defaultDate }) {
         {freq !== 'once' && (
           <div className="mt-2">
             <Label>{t('events.endDate')}</Label>
-            <DateTimePicker
-              value={endDate ? new Date(endDate) : null}
-              onChange={d => setEndDate(d ? d.toISOString().slice(0, 10) : '')}
-              allDay={true}
-              placeholder={t('events.noEndDate')}
-            />
+            <Input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} placeholder={t('events.noEndDate')} />
           </div>
         )}
       </div>
