@@ -139,7 +139,7 @@ export function EventForm({ event, onClose, defaultDate }) {
       <div className={`gap-3 ${allDay ? '' : 'grid grid-cols-1 sm:grid-cols-2'}`}>
         <div>
           <Label>{t('events.start')}</Label>
-          <Input type={allDay ? 'date' : 'datetime-local'} value={allDay ? start.slice(0, 10) : start} onChange={e => setStart(e.target.value)} required />
+          <Input type={allDay ? 'date' : 'datetime-local'} value={allDay ? start.slice(0, 10) : start} onChange={e => { setStart(e.target.value); if (!allDay) setEnd(defaultEnd(e.target.value)); }} required />
         </div>
         {!allDay && (
           <div>
