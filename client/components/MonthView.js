@@ -57,7 +57,7 @@ export function MonthView() {
       </div>
 
       {/* Day names */}
-      <div className="grid grid-cols-7 border-b border-[var(--eb-border)]">
+      <div dir="ltr" className="grid grid-cols-7 border-b border-[var(--eb-border)]">
         {dayNames.map((d, i) => (
           <div key={i} className="py-1.5 text-center text-[10px] sm:text-xs font-semibold text-[var(--eb-muted)] uppercase tracking-wide">
             {d}
@@ -67,6 +67,7 @@ export function MonthView() {
 
       {/* Calendar grid */}
       <div
+        dir="ltr"
         className="grid grid-cols-7 flex-1 auto-rows-[minmax(52px,1fr)] sm:auto-rows-[minmax(80px,1fr)]"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
