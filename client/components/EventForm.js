@@ -192,7 +192,12 @@ export function EventForm({ event, onClose, defaultDate }) {
               <button
                 key={r.value}
                 type="button"
-                onClick={() => setReminder(r.value)}
+                onClick={() => {
+                setReminder(r.value);
+                if (r.value > 0 && 'Notification' in window && Notification.permission === 'default') {
+                  Notification.requestPermission().catch(() => {});
+                }
+              }}
                 className={`px-2 sm:px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${reminder === r.value ? 'border-[#c9a96e] bg-[#c9a96e]/15 text-[#c9a96e]' : 'border-[var(--eb-border)] text-[var(--eb-muted)]'}`}
               >
                 {t(r.key)}

@@ -7,12 +7,6 @@ export function useReminders(events) {
   const firedRef = useRef(new Set());
 
   useEffect(() => {
-    if ('Notification' in window && Notification.permission === 'default') {
-      Notification.requestPermission();
-    }
-  }, []);
-
-  useEffect(() => {
     const check = () => {
       if (!events?.length) return;
       const now = Date.now();
@@ -31,11 +25,13 @@ export function useReminders(events) {
         firedRef.current.add(key);
         toFire.push({ key, event: ev });
 
-        if ('Notification' in window && Notification.permission === 'granted') {
-          const minsLeft = Math.round((new Date(ev.start).getTime() - now) / 60000);
-          const body = minsLeft > 0 ? `מתחיל בעוד ${minsLeft} דקות` : 'מתחיל עכשיו';
-          new Notification(ev.title, { body, icon: '/icon-192.png', tag: key });
-        }
+        try {
+          if ('Notification' in window && Notification.permission === 'granted') {
+            const minsLeft = Math.round((new Date(ev.start).getTime() - now) / 60000);
+            const body = minsLeft > 0 ? `מתחיל בעוד ${minsLeft} דקות` : 'מתחיל עכשיו';
+            new Notification(ev.title, { body, icon: '/icon-192.png', tag: key });
+          }
+        } catch {}
       }
 
       if (toFire.length) setPending(prev => [...prev, ...toFire]);
