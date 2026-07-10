@@ -25,7 +25,7 @@ export function getEventType(key) {
 export const RECURRENCE_OPTIONS = ['once', 'daily', 'weekly', 'monthly', 'yearly'];
 
 export function formatDate(date, locale = 'he-IL') {
-  return new Date(date).toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' });
+  return new Date(date).toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
 
 export function formatTime(date, locale = 'he-IL') {

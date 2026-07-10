@@ -18,7 +18,7 @@ function CalendarApp() {
   const { t } = useTranslation();
   const { activeGroup } = useApp();
   const { connected } = useEvents();
-  const [view, setView] = useState('month');
+  const [view, setView] = useState('agenda');
   const [addModal, setAddModal] = useState(false);
 
   return (
