@@ -51,7 +51,7 @@ export function EventForm({ event, onClose, defaultDate }) {
   const [loc, setLoc]         = useState(event?.location || '');
   const [freq, setFreq]         = useState(event?.recurrence?.frequency || 'once');
   const [endDate, setEndDate]   = useState(event?.recurrence?.endDate ? toInputDate(event.recurrence.endDate).slice(0, 10) : '');
-  const [reminder, setReminder] = useState(event?.reminder ?? 0);
+  const [reminder, setReminder] = useState(event?.reminder ?? 1440);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState('');
 
