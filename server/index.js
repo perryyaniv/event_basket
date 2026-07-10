@@ -121,13 +121,13 @@ app.post('/events/mine', async (req, res) => {
 
 // Create event
 app.post('/groups/:groupId/events', async (req, res) => {
-  const { title, type, start, end, description, location, recurrence, createdBy } = req.body;
+  const { title, type, start, end, description, location, reminder, recurrence, createdBy } = req.body;
   if (!title || !start || !createdBy) return res.status(400).json({ error: 'title, start, createdBy required' });
   const group = await Group.findById(req.params.groupId);
   if (!group) return res.status(404).json({ error: 'Group not found' });
   const event = await Event.create({
     title, type, start, end: end || null,
-    description, location, recurrence,
+    description, location, reminder, recurrence,
     createdBy, groupId: req.params.groupId,
   });
   io.to(req.params.groupId).emit('event-added', event);
