@@ -7,6 +7,15 @@ import { Button } from './ui/Button';
 import { Input, Textarea, Label } from './ui/Input';
 import { EVENT_TYPES, RECURRENCE_OPTIONS } from '@/lib/utils';
 
+const REMINDER_OPTIONS = [
+  { value: 0,    key: 'events.reminderNone' },
+  { value: 5,    key: 'events.reminder5' },
+  { value: 15,   key: 'events.reminder15' },
+  { value: 30,   key: 'events.reminder30' },
+  { value: 60,   key: 'events.reminder60' },
+  { value: 1440, key: 'events.reminder1440' },
+];
+
 const toInputDate = (d) => {
   if (!d) return '';
   const date = new Date(d);
@@ -40,8 +49,9 @@ export function EventForm({ event, onClose, defaultDate }) {
   const [end, setEnd]         = useState(event?.end ? toInputDate(event.end) : defaultEnd(initialStart));
   const [desc, setDesc]       = useState(event?.description || '');
   const [loc, setLoc]         = useState(event?.location || '');
-  const [freq, setFreq]       = useState(event?.recurrence?.frequency || 'once');
-  const [endDate, setEndDate] = useState(event?.recurrence?.endDate ? toInputDate(event.recurrence.endDate).slice(0, 10) : '');
+  const [freq, setFreq]         = useState(event?.recurrence?.frequency || 'once');
+  const [endDate, setEndDate]   = useState(event?.recurrence?.endDate ? toInputDate(event.recurrence.endDate).slice(0, 10) : '');
+  const [reminder, setReminder] = useState(event?.reminder ?? 0);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState('');
 
@@ -78,6 +88,7 @@ export function EventForm({ event, onClose, defaultDate }) {
       end: endDate_,
       description: desc.trim(),
       location: loc.trim(),
+      reminder,
       recurrence: { frequency: freq, endDate: endDate ? new Date(endDate) : null },
     };
     try {
@@ -171,6 +182,25 @@ export function EventForm({ event, onClose, defaultDate }) {
           </div>
         )}
       </div>
+
+      {/* Reminder */}
+      {!allDay && (
+        <div>
+          <Label>{t('events.reminder')}</Label>
+          <div className="flex flex-wrap gap-1.5">
+            {REMINDER_OPTIONS.map(r => (
+              <button
+                key={r.value}
+                type="button"
+                onClick={() => setReminder(r.value)}
+                className={`px-2 sm:px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${reminder === r.value ? 'border-[#c9a96e] bg-[#c9a96e]/15 text-[#c9a96e]' : 'border-[var(--eb-border)] text-[var(--eb-muted)]'}`}
+              >
+                {t(r.key)}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Description */}
       <div>

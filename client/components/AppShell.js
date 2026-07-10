@@ -10,20 +10,24 @@ import { ToastContainer } from './ui/Toast';
 import { ProgressBar } from './ui/ProgressBar';
 import { Modal } from './ui/Modal';
 import { EventForm } from './EventForm';
+import { ReminderBanner } from './ui/ReminderBanner';
 import { Button } from './ui/Button';
 import { Plus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useReminders } from '@/hooks/useReminders';
 
 function CalendarApp() {
   const { t } = useTranslation();
   const { activeGroup } = useApp();
-  const { connected } = useEvents();
+  const { connected, events } = useEvents();
+  const { pending, dismiss }  = useReminders(events);
   const [view, setView] = useState('agenda');
   const [addModal, setAddModal] = useState(false);
 
   return (
     <div className="flex flex-col h-[100dvh] overflow-hidden bg-[var(--eb-bg)] text-[var(--eb-text)]">
       <Header view={view} setView={setView} />
+      <ReminderBanner reminders={pending} onDismiss={dismiss} />
 
       {/* No group selected state */}
       {!activeGroup ? (

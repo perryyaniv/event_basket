@@ -48,6 +48,7 @@ const EventSchema = new mongoose.Schema({
   allDay:      { type: Boolean, default: false },
   description: { type: String, default: '' },
   location:    { type: String, default: '' },
+  reminder:    { type: Number, default: 0 },
   recurrence:  { type: RecurrenceSchema, default: () => ({ frequency: 'once', endDate: null }) },
   createdBy:   { type: String, required: true },
   groupId:     { type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true },
