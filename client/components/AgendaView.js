@@ -138,7 +138,7 @@ export function AgendaView({ mineOnly = false }) {
                             {ev.recurrence?.frequency !== 'once' && <RefreshCw size={10} className="text-[var(--eb-muted)] flex-shrink-0" />}
                           </div>
                           <div className="flex items-center gap-3 mt-0.5 text-xs text-[var(--eb-muted)]">
-                            <span>{ev.allDay ? t('events.allDay') : `${formatTime(ev.start)}${ev.end ? ` – ${formatTime(ev.end)}` : ''}`}</span>
+                            <span dir="ltr">{ev.allDay ? t('events.allDay') : `${formatTime(ev.start)}${ev.end ? ` – ${formatTime(ev.end)}` : ''}`}</span>
                             {ev.location && <span className="flex items-center gap-0.5"><MapPin size={10} />{ev.location}</span>}
                           </div>
                         </div>
