@@ -7,7 +7,7 @@ import { useApp } from './AppContext';
 const EventsContext = createContext(null);
 
 export function EventsProvider({ children }) {
-  const { activeGroup, username, API } = useApp();
+  const { activeGroup, username, API, switchServer } = useApp();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [connected, setConnected] = useState(false);
@@ -36,6 +36,13 @@ export function EventsProvider({ children }) {
     socket.on('disconnect', () => setConnected(false));
     return () => socket.disconnect();
   }, [API]);
+
+  // Try fallback server after 8s of disconnect
+  useEffect(() => {
+    if (connected) return;
+    const t = setTimeout(() => switchServer?.(), 8000);
+    return () => clearTimeout(t);
+  }, [connected]);
 
   // Join/leave socket room on group change
   useEffect(() => {

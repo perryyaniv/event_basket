@@ -3,11 +3,13 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 import axios from 'axios';
 import { useNotification } from './NotificationContext';
 
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+const API_PRIMARY  = process.env.NEXT_PUBLIC_API_URL          || 'http://localhost:5000';
+const API_FALLBACK = process.env.NEXT_PUBLIC_API_FALLBACK_URL || null;
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
   const { showNotification } = useNotification();
+  const [API, setAPI]               = useState(API_PRIMARY);
   const [username, setUsername]     = useState(null);
   const [pastUsers, setPastUsers]   = useState([]);
   const [groups, setGroups]         = useState([]);
@@ -55,6 +57,23 @@ export function AppProvider({ children }) {
   const showToast = useCallback((message, type = 'success', options = {}) => {
     showNotification(message, { type, ...options });
   }, [showNotification]);
+
+  // ── Server failover ───────────────────────────────────────────────────
+  const switchServer = useCallback(async () => {
+    if (!API_FALLBACK) return;
+    const candidates = API === API_PRIMARY
+      ? [API_PRIMARY, API_FALLBACK]
+      : [API_PRIMARY, API_FALLBACK];
+    for (const url of candidates) {
+      try {
+        await axios.get(`${url}/health`, { timeout: 4000 });
+        if (url !== API) setAPI(url);
+        return;
+      } catch {}
+    }
+  }, [API]);
+
+  useEffect(() => { switchServer(); }, []);
 
   // ── Auth ───────────────────────────────────────────────────────────────
   const login = useCallback((name) => {
@@ -105,7 +124,7 @@ export function AppProvider({ children }) {
       darkMode, setDarkMode,
       language, setLanguage,
       showToast,
-      API,
+      API, switchServer,
     }}>
       {children}
     </AppContext.Provider>
